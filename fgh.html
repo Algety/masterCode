@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop</title>
+    <style>
+        .draggable {
+            width: 50px;
+            height: 50px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 50px;
+            margin: 5px;
+            cursor: grab;
+            border: 1px solid #000;
+            display: inline-block;
+        }
+
+        .dropzone {
+            width: 50px;
+            height: 50px;
+            background-color: lightgray;
+            border: 2px dashed #000;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="elements">
+        <div class="draggable" draggable="true" id="element-1">1</div>
+        <div class="draggable" draggable="true" id="element-2">2</div>
+        <div class="draggable" draggable="true" id="element-3">3</div>
+        <div class="draggable" draggable="true" id="element-4">4</div>
+        <div class="draggable" draggable="true" id="element-5">5</div>
+        <div class="draggable" draggable="true" id="element-6">6</div>
+        <div class="draggable" draggable="true" id="element-7">7</div>
+        <div class="draggable" draggable="true" id="element-8">8</div>
+    </div>
+
+    <div class="container" id="targets">
+        <div class="dropzone"></div>
+        <div class="dropzone"></div>
+        <div class="dropzone"></div>
+        <div class="dropzone"></div>
+        <div class="dropzone"></div>
+    </div>
+
+    <button onclick="getDroppedContent()">Get Content</button>
+
+    <script>
+        const elementsContainer = document.getElementById('elements');
+        const dropzones = document.querySelectorAll('.dropzone');
+
+        // // Store the initial positions of all elements
+        // const initialPositions = [...document.querySelectorAll('.draggable')];
+
+        // // Function to add a new draggable element back to its original position
+        // function addNewElement(content) {
+        //     const newElement = document.createElement('div');
+        //     newElement.className = 'draggable';
+        //     newElement.draggable = true;
+        //     newElement.textContent = content;
+
+        //     // Attach dragstart event to the new element
+        //     newElement.addEventListener('dragstart', (event) => {
+        //         event.dataTransfer.setData('text/plain', event.target.textContent);
+        //     });
+
+        //     // Find the correct position for the new element
+        //     const targetPosition = initialPositions.find(el => el.textContent === content);
+        //     elementsContainer.insertBefore(newElement, targetPosition.nextSibling);
+        // }
+
+        // Initialize dragstart event for all initial draggable elements
+        document.querySelectorAll('.draggable').forEach(draggable => {
+            draggable.addEventListener('dragstart', (event) => {
+                event.dataTransfer.setData('text/plain', event.target.textContent);
+            });
+        });
+
+        // Add dragover and drop events to all drop zones
+        dropzones.forEach(dropzone => {
+            dropzone.addEventListener('dragover', (event) => {
+                event.preventDefault(); // Allow drop
+            });
+
+            dropzone.addEventListener('drop', (event) => {
+                event.preventDefault();
+
+                // Get the content of the dragged element
+                const data = event.dataTransfer.getData('text/plain');
+                const draggedElement = [...document.querySelectorAll('.draggable')].find(el => el.textContent === data);
+
+                if (draggedElement) {
+                    // Remove the dragged element from its current container
+                    draggedElement.parentElement.removeChild(draggedElement);
+
+                    // Clear the drop zone and append the dragged element to it
+                    dropzone.innerHTML = '';
+                    dropzone.appendChild(draggedElement);
+
+                    // Add a replacement draggable element back to its original position
+                    addNewElement(data);
+
+                    console.log(`Dropped: ${data}`);
+                }
+            });
+        });
+
+        // Function to get the content of all drop zones
+        function getDroppedContent() {
+            const content = [];
+            dropzones.forEach(dropzone => {
+                if (dropzone.firstChild) {
+                    content.push(dropzone.firstChild.textContent);
+                } else {
+                    content.push(null); // No content in this drop zone
+                }
+            });
+            console.log('Content of dropzones:', content);
+        }
+    </script>
+</body>
+</html>

@@ -14,13 +14,13 @@ body {
     background-color:rgba(255, 255, 255, 0.85);
 }
 
-.answerBox, #palettBox, #codeToGuess {
+.answerBox, #palettBox, #codeToGuess, #digitsBox {
     display: flex;
     gap: 10px; 
 }
 
-.answerItem, .codeDigit {
-    width: 50px;
+.answerItem, .codeDigit, .answerDigit {
+    min-width: 50px;
     height: 50px;
     background-color: lightblue;
     text-align: center;
@@ -35,4 +35,25 @@ body {
     text-align: center;
     line-height: 50px; /* Centers text vertically */
     border: 1px solid #000;
+}
+
+.draggable {
+    /* width: 50px;
+    height: 50px;
+    background-color: lightblue;
+    text-align: center;
+    line-height: 50px;
+    margin: 5px; */
+    cursor: grab;
+    /* border: 1px solid #000; */
+    display: inline-block;
+}
+
+.dropzone {
+    /* width: 50px;
+    height: 50px;
+    background-color: lightgray;
+    border: 2px dashed #000;
+    margin: 5px; */
+    display: inline-block;
 }

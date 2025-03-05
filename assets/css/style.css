@@ -10,16 +10,16 @@ body {
     background-position: center;
 }
 
-.gameContainer {
+.controlContainer, .gameContainer {
     background-color:rgba(255, 255, 255, 0.85);
 }
 
-.answerBox, #palettBox, #codeToGuess, #digitsBox {
+.answerBox, #clueBox, #palettBox, #codeToGuess, #digitsBox {
     display: flex;
     gap: 10px; 
 }
 
-.answerItem, .codeDigit, .answerDigit {
+.answerItem, .codeDigit, .answerDigit, .clueDigit {
     min-width: 50px;
     height: 50px;
     background-color: lightblue;

@@ -1,37 +1,36 @@
 // Define listener functions
 function getDragId(event) {
     // Store the ID of the dragged element
-   event.dataTransfer.setData('text/plain', this.id);
+    event.dataTransfer.setData('text/plain', this.id);
 }
 
-// Define listener functions
 function allowDrop(event) {
-   event.preventDefault(); // Allow the drop
+    event.preventDefault(); // Allow the drop
 }
 
 function handleDrop(event) {
-   event.preventDefault();
-   // Get the ID of the dragged element
-   const draggedElementId = event.dataTransfer.getData('text/plain');
-   const draggedElement = document.getElementById(draggedElementId);
-   // Remove any existing element in the dropzone and display a full palett
-   if (this.firstChild) {
-       this.removeChild(this.firstChild);
-       document.getElementById("palettBox").innerHTML = "";
-       displayPalett();
-   }
-   // Append the dragged element to the dropzone with a class
-   this.appendChild(draggedElement);
-   draggedElement.classList.add("added");
-   draggedElement.setAttribute("draggable","false");
-   initializeDraggableElements();
+    event.preventDefault();
+    // Get the ID of the dragged element
+    const draggedElementId = event.dataTransfer.getData('text/plain');
+    const draggedElement = document.getElementById(draggedElementId);
+    // Remove any existing element in the dropzone and display a full palette
+    if (this.firstChild) {
+        this.removeChild(this.firstChild);
+        document.getElementById("palettBox").innerHTML = "";
+        displayPalett();
+    }
+    // Append the dragged element to the dropzone with a class
+    this.appendChild(draggedElement);
+    draggedElement.classList.add("added");
+    draggedElement.setAttribute("draggable", "false");
+    initializeDraggableElements();
 }
 
 // Make draggable elements functional
 function initializeDraggableElements() {
     const draggables = document.querySelectorAll('.draggable');
     draggables.forEach(draggable => {
-        draggable.addEventListener('dragstart', getDragId);   
+        draggable.addEventListener('dragstart', getDragId);
     });
 }
 
@@ -41,7 +40,6 @@ function initializeDropzones() {
     dropzones.forEach(dropzone => {
         // Allow dropping on this element
         dropzone.addEventListener('dragover', allowDrop);
-
         // Handle the drop event
         dropzone.addEventListener('drop', handleDrop);
     });
@@ -50,7 +48,6 @@ function initializeDropzones() {
 // Function to disable the dropzones in an answerBox
 function disableDropzones() {
     const dropzones = document.querySelectorAll('.active');
-    // console.log(dropzones);
     dropzones.forEach(dropzone => {
         // Remove the dragover and drop event listeners
         dropzone.removeEventListener('dragover', allowDrop);
@@ -58,134 +55,145 @@ function disableDropzones() {
     });
 }
 
+// Reinitialize drag-and-drop functionality
 function reinitializeDragAndDrop() {
     initializeDraggableElements();
     initializeDropzones();
 }
 
-// * -------------------------------------
-
+// Initialize the game when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function() {
-    let buttons = document.getElementsByTagName("button");
-    for (let button of buttons) {
+    const buttons = document.getElementsByTagName("button");
+    for (const button of buttons) {
         button.addEventListener("click", function() {
-            let clickedButton = this.getAttribute("data-type");
-            switch(clickedButton) {
-                case "difficulty": 
+            const clickedButton = this.getAttribute("data-type");
+            switch (clickedButton) {
+                case "difficulty":
                     difficultySwitch();
                     break;
-                case "start": 
-                    difficulty = document.querySelector('[data-type="difficulty"]').textContent;
-                    var gameContainerClass = document.getElementById("gameContainer").classList;
+                case "start":
+                    const difficulty = document.querySelector('[data-type="difficulty"]').textContent;
+                    const gameContainerClass = document.getElementById("gameContainer").classList;
                     if (gameContainerClass.contains("started")) {
-                        alert("Start a new game?")
-                    };
+                        alert("Start a new game?");
+                    }
                     startNewGame(difficulty);
                     break;
                 case "instruction":
-                    showInstruction ();
+                    showInstruction();
                     break;
-                }
-            });
-        }
-    
-        // Initialize drag-and-drop functionality
-        initializeDraggableElements();
-        initializeDropzones();
-    });
-    
-// * -----------------------------------------
-
-function difficultySwitch() {
-    let difficulty = document.querySelector('[data-type="difficulty"]');
-    difficulty.textContent = difficulty.textContent === "Easy" ? "Medium" : "Easy";
-    // disable during the game;
-}
-
-function startNewGame(difficulty) {
-    var gameContainer = document.getElementById("gameContainer");
-    [...gameContainer.children].forEach(child => {
-            child.innerHTML = "";
+            }
         });
-    gameContainer.classList.add("started");
-    let code = genCode (difficulty);
-    placeCode (code);
-    displayPalett ();
-    addAnswerBox ();    
+    }
+
+    // Initialize drag-and-drop functionality
+    initializeDraggableElements();
+    initializeDropzones();
+});
+
+// Switch the difficulty level between Easy and Medium
+function difficultySwitch() {
+    const difficulty = document.querySelector('[data-type="difficulty"]');
+    difficulty.textContent = difficulty.textContent === "Easy" ? "Medium" : "Easy";
 }
 
+// Start a new game with the specified difficulty
+function startNewGame(difficulty) {
+    const gameContainer = document.getElementById("gameContainer");
+    [...gameContainer.children].forEach(child => {
+        child.innerHTML = "";
+    });
+    gameContainer.classList.add("started");
+    document.getElementById("difficulty").disabled=true;
+    document.getElementById("pictureContainer").hidden = true;
+    document.getElementById("gameContainer").hidden = false;
+    const code = genCode(difficulty);
+    placeCode(code);
+    displayPalett();
+    addAnswerBox();
+}
 
-function genCode () {
-    let codeLength = difficulty === "Easy" ? 4 : 5;
-    let code = [];
-    for (i = 0; i <codeLength; i++) {
-        let digit = Math.floor(Math.random()*8 + 1);
+// Generate a code based on the difficulty level
+function genCode(difficulty) {
+    const codeLength = difficulty === "Easy" ? 4 : 5;
+    const code = [];
+    for (let i = 0; i < codeLength; i++) {
+        const digit = Math.floor(Math.random() * 8 + 1);
         code.push(digit);
-    }   
+    }
     return code;
 }
 
-function placeCode (code) {
-    let codeContainer = document.getElementById("codeToGuess");  
+// Place the generated code in the code container
+function placeCode(code) {
+    const codeContainer = document.getElementById("codeToGuess");
+    codeContainer.innerHTML = ''; // Clear previous code
     for (const item of code) {
-        let digit = document.createElement("div");
+        const digit = document.createElement("div");
         digit.textContent = item;
         digit.className = "codeDigit";
         codeContainer.appendChild(digit);
     }
 }
 
+// Display the palette of draggable digits
 function displayPalett() {
-    let palettBox = document.getElementById("palettBox");  
-    for (i = 1; i < 9; i++) {
-        let digit = document.createElement("div");
+    const palettBox = document.getElementById("palettBox");
+    palettBox.innerHTML = ''; // Clear previous palette
+    for (let i = 1; i < 9; i++) {
+        const digit = document.createElement("div");
         digit.textContent = i;
         digit.className = "palettColor draggable";
-        digit.setAttribute("draggable","true");
-        digit.id = "palettDigit-"+i;
+        digit.setAttribute("draggable", "true");
+        digit.id = "palettDigit-" + i;
+        digit.style.backgroundImage = "url('/assets/images/buttons/b-" + i + ".png')";
         palettBox.appendChild(digit);
     }
     // Reinitialize drag-and-drop for newly created elements
     reinitializeDragAndDrop();
 }
 
+// Add an answer box for the player to input their guess
 function addAnswerBox() {
     const reasoningBox = document.getElementById("reasoningBox");
     const answerBox = document.createElement("div");
     answerBox.className = "answerBox";
-    reasoningBox.appendChild(answerBox);  
-    addNumberOfTries (answerBox);
-    addDigitBox (answerBox);
-    addSubmitButton (answerBox);
-    addClueBox (answerBox);
+    reasoningBox.appendChild(answerBox);
+    // addNumberOfTries(answerBox);
+    addDigitBox(answerBox);
+    addSubmitButton(answerBox);
+    addClueBox(answerBox);
     return answerBox;
 }
 
-function addDigitBox (answerBox) {
+// Add a box for the player to input their guess digits
+function addDigitBox(answerBox) {
     const digitBox = document.createElement("div");
-        digitBox.className = "answerItem";
-        answerBox.appendChild(digitBox);
+    digitBox.className = "answerItem";
+    answerBox.appendChild(digitBox);
     const numberOfDigits = document.getElementsByClassName("codeDigit").length;
-    for (i = 1; i <= numberOfDigits; i++) {
-        let digit = document.createElement("div");
+    for (let i = 1; i <= numberOfDigits; i++) {
+        const digit = document.createElement("div");
         digit.textContent = i;
         digit.className = "answerDigit dropzone active";
-        digit.id = "answerDigit-"+i;
+        digit.id = "answerDigit-" + i;
         digitBox.appendChild(digit);
     }
-    // initializeDropzones();
     // Reinitialize drag-and-drop for newly created dropzones
     reinitializeDragAndDrop();
 }
 
-function addNumberOfTries (answerBox) {
-    const attempNum = document.createElement("div");
-    attempNum.className = "answerItem";
-    attempNum.innerHTML = document.getElementsByClassName("answerBox").length;
-    answerBox.appendChild(attempNum);
-}
+// Add a box to display the number of tries
+// function addNumberOfTries(answerBox) {
+//     const attemptNum = document.createElement("div");
+//     attemptNum.className = "answerItem";
+//     attemptNum.id = "attemptNum";
+//     attemptNum.innerHTML = document.getElementsByClassName("answerBox").length;
+//     answerBox.appendChild(attemptNum);
+// }
 
-function addSubmitButton (answerBox) {
+// Add a submit button for the player to submit their guess
+function addSubmitButton(answerBox) {
     const submitButton = document.createElement("button");
     submitButton.className = "answerItem";
     submitButton.id = "submitAnswer";
@@ -203,104 +211,121 @@ function addSubmitButton (answerBox) {
     return submitButton, handleClick;
 }
 
-
-function isAnswerComplete () {
+// Check if the player's answer is complete
+function isAnswerComplete() {
     const numberOfDigitsInAnswer = [...document.getElementsByClassName("added")].length;
     const numberOfDigits = document.getElementsByClassName("codeDigit").length;
     if (numberOfDigitsInAnswer < numberOfDigits) {
         alert("You need to complete your code");
     }
-    return numberOfDigitsInAnswer >= numberOfDigits;;
+    return numberOfDigitsInAnswer >= numberOfDigits;
 }
 
+// Handle the submit button click event
 function submitButtonClicked(submitButton, handleClick) {
     submitButton.className = "clicked";
-    submitButton.setAttribute("disabled","true");
-    [...document.getElementsByClassName("added")].forEach (item => {
+    submitButton.setAttribute("disabled", "true");
+    [...document.getElementsByClassName("added")].forEach(item => {
         item.classList.remove("added");
         item.classList.remove("draggable");
         initializeDraggableElements();
-    })
-    // submitButton.removeEventListener("click", handleClick);
+    });
     disableDropzones();
-    let activeDigitBoxes = document.getElementsByClassName("active");
-    // Use the spread operator to convert to an array
+    const activeDigitBoxes = document.getElementsByClassName("active");
     [...activeDigitBoxes].forEach(activeDigitBox => {
         disableDropzones(activeDigitBox);
         activeDigitBox.firstChild.classList.add("check");
         activeDigitBox.classList.remove("active");
     });
-    
-    checkAnswer ();
-    displayClue ();
-    addAnswerBox ();
+    checkAnswer();
+    displayClue();
+    addAnswerBox();
 }
 
-function addClueBox (answerBox) {
+// Add a box to display clues for the player's guess
+function addClueBox(answerBox) {
     const clueBox = document.createElement("div");
     clueBox.className = "answerItem";
-    clueBox.id = "clueBox"
+    clueBox.id = "clueBox";
     answerBox.appendChild(clueBox);
-    addClueDigits (clueBox);
+    addClueDigits(clueBox);
     return clueBox;
 }
 
-function addClueDigits (clueBox) {
+// Add digits to the clue box
+function addClueDigits(clueBox) {
     const numberOfDigits = document.getElementsByClassName("codeDigit").length;
-    for (i = 1; i <= numberOfDigits; i++) {
-        let clueDigit = document.createElement("div");
+    for (let i = 1; i <= numberOfDigits; i++) {
+        const clueDigit = document.createElement("div");
         clueDigit.textContent = 0;
+        clueDigit.style.backgroundImage = "url('/assets/images/buttons/bn-0.png')";
         clueDigit.className = "clueDigit activeClue";
-        clueDigit.id = "clueDigit-"+i;
+        clueDigit.id = "clueDigit-" + i;
         clueBox.appendChild(clueDigit);
     }
 }
 
-// function getArrayOfAnswer () {
-//         const answer = [];
-//         dropzones.forEach(dropzone => {
-//             answer.push(dropzone.firstChild.textContent);
-//         });
-//         console.log('Content of dropzones:', answer);
-// }
-
+// Check the player's answer against the generated code
 function checkAnswer() {
     const answerDigit = [...document.getElementsByClassName("check")];
     const codeDigit = [...document.getElementsByClassName("codeDigit")];
     const compDigit = [...new Set(codeDigit)];
 
-    var j = 0;
-    var k = 0;
+    let j = 0;
+    let k = 0;
 
-    // count digits of the right color and in the right position
+    // Count digits of the right color and in the right position
     for (let i = 0; i < codeDigit.length; i++) {
         if (codeDigit[i].textContent === answerDigit[i].textContent) {
             j++;
-        }}
-    // count digits of the right color but in the wrong position    
+        }
+        if (j === codeDigit.length) {
+            [...document.getElementsByClassName("codeDigit")].forEach(item => {
+                item.style.backgroundImage = "url('/assets/images/buttons/b-" + item.textContent + ".png')";
+            })
+           
+       
+            document.getElementById("gameContainer").classList.remove("started");
+            document.getElementById("difficulty").disabled=false;
+            document.getElementById("pictureContainer").hidden = false;
+            document.getElementById("gameContainer").hidden = true;
+            document.getElementById("pictureContainer").firstElementChild.textContent = "Well done! You cracked the code!";
+            document.getElementById("safe").src="/assets/images/safe-opened.png";
+            return;
+        }  
+    }
+    // Count digits of the right color but in the wrong position
     for (let i = 0; i < compDigit.length; i++) {
-        let digitToCount = compDigit[i].textContent;
-        let answerOccurance = answerDigit.filter(digit => digit.textContent === digitToCount).length;
-        let codeOccurance = codeDigit.filter(digit => digit.textContent === digitToCount).length;
-        k = k + Math.min(answerOccurance,codeOccurance);
-    } 
+        const digitToCount = compDigit[i].textContent;
+        const answerOccurrence = answerDigit.filter(digit => digit.textContent === digitToCount).length;
+        const codeOccurrence = codeDigit.filter(digit => digit.textContent === digitToCount).length;
+        k = k + Math.min(answerOccurrence, codeOccurrence);
+    }
     answerDigit.forEach(item => {
         item.classList.remove("check");
-    })
-    k = k>=j?k - j:0;
-    displayClue(j,k);
-    }
-
-function displayClue (j,k) {
-    const clueDigit = [...document.getElementsByClassName("activeClue")];
-    for (let i = 0; i < j; i++) {
-        clueDigit[i].textContent = 2;
-    }
-    for (let i = j; i < k + j-1; i++) {
-        clueDigit[i].textContent = 1;
-    } 
+    });
+    k = k >= j ? k - j : 0;
+    displayClue(j, k);
 }
 
-function showInstruction () {
-    
+// Display clues based on the player's guess
+function displayClue(j, k) {
+    const clueDigits = [...document.getElementsByClassName("activeClue")];
+    for (let i = 0; i < j; i++) {
+        clueDigits[i].textContent = 2;
+        clueDigits[i].style.backgroundImage = "url('/assets/images/buttons/bn-2.png')";
+    }
+    for (let i = j; i < k + j; i++) {
+        clueDigits[i].textContent = 1;
+        clueDigits[i].style.backgroundImage = "url('/assets/images/buttons/bn-1.png')";
+    }
+    clueDigits.forEach(item => {
+        item.classList.remove("activeClue");
+    });
+}
+
+
+// Show game instructions (function to be implemented)
+function showInstruction() {
+    // Implementation needed
 }

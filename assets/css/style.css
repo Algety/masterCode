@@ -1,59 +1,207 @@
 body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    width: 100%;
-    /* background-image: url("/assets/images/steampunk.jpeg"); */
-    background-image: url("/assets/images/25329.jpg");
+    height: 100vh;
+    width: 100vw;
+    background-image: url("/assets/images/s-bgd.jpg");
     background-size: cover;
-    background-repeat:repeat-y;
+    background-repeat: repeat-y;
     background-position: center;
+    display: flex; 
+    flex-direction: column;
+    /* justify-content: center;  */
+    align-items: center;
+
 }
 
-.controlContainer, .gameContainer {
-    background-color:rgba(255, 255, 255, 0.85);
+#mainContainer{
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.35);
+    border: 2px solid rgb(88, 87, 87);
+    border-radius: 10px;
+    padding: 10px 10px 50px 10px;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.7);
+}
+/* .controlContainer, .gameContainer {
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.85);
+} */
+
+/* Ensure the controlContainer takes the full width of the screen */
+.controlContainer {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+button {
+    all: unset; /* Reset all styles */
+    display: inline-block; /* Restore display property */
+    background-color: rgba(219, 219, 219, 0.5);
+    border: 2px solid rgb(88, 87, 87);
+    border-radius: 3px;
+    padding: 1px;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+
+button:hover {
+    background-color: rgba(237, 237, 237, 0.6);
+}
+
+button:disabled {
+    background-color: rgba(219, 219, 219, 0.3);
+    border: 2px solid rgb(88, 87, 87);
+    color: #454545;
+}
+
+#difficulty {
+    width: 80px;
+}
+
+#submitAnswer {
+    width: 27px;
+    height: 27px;
+    background-image: url("/assets/images/buttons/cover.png"); 
+    background-size: cover;
+    background-position: center;
+    /* opacity: 0.8; */
+    border: none;
+    box-shadow: none;
+    /* background-color: rgba(72, 171, 153, 0); */
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #31ff6c;
+    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 27px;
+}
+
+#submitAnswer:hover {
+    font-size: 25px;
+}
+
+#submitAnswer:disabled {
+    color: #c7c7c7;
+}
+
+/* Style the controls div to display its children in a row and center them horizontally */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Add some space between the buttons */
+}
+
+/* Ensure the gameContainer takes the full width of the screen and is positioned 20px below the controlContainer */
+#gameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px; /* 20px space below the controlContainer */
 }
 
 .answerBox, #clueBox, #palettBox, #codeToGuess, #digitsBox {
     display: flex;
-    gap: 10px; 
+    align-items: center;
+    justify-content: center;   
 }
 
-.answerItem, .codeDigit, .answerDigit, .clueDigit {
-    min-width: 50px;
-    height: 50px;
-    background-color: lightblue;
-    text-align: center;
-    line-height: 50px; /* Centers text vertically */
-    border: 1px solid #000;
+#palettBox {
+    width: 290px;
+    border: 2px solid rgb(88, 87, 87);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.7);
+}
+.answerDigit, #attemptNum {
+    display: flex;
+    min-width: 40px;
+    height: 40px;
+    /* text-align: center; */
+    /* line-height: 40px; */
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+}
+
+.answerDigit {
+    background-image: url("/assets/images/buttons/b-9.png");
+    background-size: cover;
+    background-position: center;
+    color: transparent;
+}
+/* Style for the palettBox to display 8 divs in 2 rows of 4 divs each */
+#palettBox {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+/* .answerItem, */ .codeDigit { 
+    min-width: 60px;
+    height: 60px;
+    background-image: url("/assets/images/buttons/cover.png");
+    background-size: cover;
+    background-position: center;
+    margin-inline: 1px;
+    /* line-height: 30px;  */
 }
 
 .palettColor {
-    width: 50px;
-    height: 50px;
-    background-color: coral;
+    width: 40px;
+    height: 40px;
     text-align: center;
-    line-height: 50px; /* Centers text vertically */
-    border: 1px solid #000;
+    /* line-height: 40px; Centers text vertically */
+    background-size: cover;
+    background-position: center;
+    color: transparent;
+}
+
+.clueDigit {
+    background-size: cover;
+    background-position: center;
+    /* color: transparent; */
+    min-width: 30px;
+    line-height: 40px; 
+    height: 30px;
+    align-items: center;
+    justify-content: center;
 }
 
 .draggable {
-    /* width: 50px;
-    height: 50px;
-    background-color: lightblue;
-    text-align: center;
-    line-height: 50px;
-    margin: 5px; */
     cursor: grab;
-    /* border: 1px solid #000; */
     display: inline-block;
 }
 
 .dropzone {
-    /* width: 50px;
-    height: 50px;
-    background-color: lightgray;
-    border: 2px dashed #000;
-    margin: 5px; */
     display: inline-block;
+    align-items: center; 
+    
 }
+
+/* Ensure the children of gameContainer take the full width of the screen and are centered */
+#codeToGuess {
+    width: 290px;
+    display: flex;
+    justify-content: center;
+    border: 2px solid rgb(88, 87, 87);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.7);
+
+}
+
+#reasoningBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+

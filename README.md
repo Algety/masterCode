@@ -221,9 +221,9 @@ This site was deployed by completing the following steps:
 1. Open [GitHub](https://github.com/) and log in.
 2. Locate the needed GitHub repository.
 3. Navigate to the "Settings".
-4. Navigate down to the "GitHub Pages"
-5. Click on the provided link. To open it in a new tab, right-click and select "Open in a new tab".
-6. Under the "Source" section, click the drop-down menu labeled "None" and select "Main". Then, click "Save".
+4. On the left-hand sidebar, in the Code and automation section, navigate down to the "Pages".
+5. Click on the Page link.
+6. On the page pick source to set to 'Deploy from Branch', select Main branch and set Folder to / (root).
 7. After saving, the page will refresh automatically. A link to the deployed website will be displayed.
 
 ## Forking the Project

@@ -76,6 +76,7 @@ The palette box presents 8 colored pins. The reasoning box comprises an answer b
 
 ### Style and design
 Considering the character of the game, the goal is to ensure players can focus intently on the gameplay while making the colored pins prominently visible. The overall style of the game interface is industrial and modern, with a rugged and functional design. The concrete-textured background gives it a sturdy and serious feel, appropriate for a logic and deductive game.
+
 ![tablet-screen](https://github.com/user-attachments/assets/bafdcb03-ce30-4f1e-8c05-5240a7601b0e)
 
 

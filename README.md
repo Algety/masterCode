@@ -89,56 +89,40 @@ Shades of grey and metallic tones dominate the layout, creating a cohesive and f
 
 ## Features
 ### General
-#### 
-Each page has a Navigation bar section. This section is at the top of each page and is fixed allowing to navigate between pages without the need to scroll back to the top. The navigation bar contains a 'Book Now' button, highlighted in a contrasting color to be easily noticeable, directing the user to the Booking page.
-![image](https://github.com/user-attachments/assets/19618722-d9f5-4742-a7d7-e91203431eab)
-![image](https://github.com/user-attachments/assets/95d6c766-259b-4541-aa45-8217601bdc7c)
-![image](https://github.com/user-attachments/assets/42bd9281-9b90-49ee-af62-d46df6d70bd8)
-#### Footer:  
-Each page also has a footer element. This contains links to the company`s social media pages, i.e Facebook and Instagram, Twitter. All of these icons, when clicked, will open in a new tab.  
-![image](https://github.com/user-attachments/assets/8452f870-0693-4655-b543-41e285c0242b)
+#### Main container
+The main container resembles a device or machine with elements like metal plates, screws, and a vault door, evoking a sense of machinery and a secure facility. The container includes the control container and the game container. The control container’s appearance remains constant throughout the game. The game container, however, displays a message and an image of a locked vault before the game starts, the game board during the game, and an image of an unlocked vault if the player wins.
 
-### Home page
-The Home page contains the header and footer features mentioned above.  
-#### Main Section:
-In the main section of the Home page, there is a main image (front banner) followed by an introductory section containing information about Moon trips, and Book Now button, which navigates a user to the booking form.
-![image](https://github.com/user-attachments/assets/c91cab8b-b77b-4065-bd3c-32f878589dec)
-### Booking page
-The booking page contains a booking form where the visitor can choose the dates of a trip and the number of travelers. All the fields of the form, apart from a text field for a message, are required and input is validated for the type of data. If the form is submitted successfully, the user is directed to the confirmation page.
-![image](https://github.com/user-attachments/assets/5bbaf507-d43c-4a9f-bfca-471af4d77c7b)
-### Confirmation page
-A message on the confirmation page informs the user about the successful submission, enhancing the user experience.
-![image](https://github.com/user-attachments/assets/7a40c858-6005-4b80-869f-3d47c0bee493)
-### Traveller`s Guide page
-Containes the essential information about the trip: duration, accommodation, dining, luggage, safety, and activities.
-![image](https://github.com/user-attachments/assets/fa6b3ee9-e764-4a2d-86a7-3dee37098405)
+![image](https://github.com/user-attachments/assets/dc8acf7e-0f89-421d-ae28-ab4605f38b98)
+![image](https://github.com/user-attachments/assets/a8bd8abb-a0f2-4cec-8c32-748e04b3d907)
+
+#### Drag and drop elements
+The palette box contains pegs of 8 colors which a player drags to an answer box below. The answer box contains drop zones where the colored pegs are placed. After the answer is submitted, the drop zones become disabled. After each unsuccessful guess, a new answer box is added for another try.
+
+![image](https://github.com/user-attachments/assets/7f4870c0-dec5-4031-b9b1-c0914e5cf615)
 
 ## Future Features
-To meet the needs of the business and visitors/customers of the site, the following features are planned to be implemented:
-* A gallery of pictures from the latest trips, giving visitors an understanding of what to expect and inspiring a desire to take the trip.
-* Testimonials with portrait photos of customers to assure visitors of the site of the safety and quality of the journey, and the credibility of the company.
+1. Implement functionality for the Restart button.
+2. Confine the number of trys.
+3. Add a scroll to the reasoning box.
 
 ## Technologies Used
 ### Languages Used 
 * [HTML5](https://www.w3schools.com/html/default.asp).
 * [CSS3](https://www.w3schools.com/css/default.asp).
+* [JS](https://www.w3schools.com/css/default.asp).
 ### Frameworks - Libraries - Programs Used
 * [Bootstrap:](https://getbootstrap.com/)
    * Bootstrap was used to acheave responsiveness of the website. 
 * [Google Fonts:](https://fonts.google.com/)
    * Some icons on the site were sourced from the Google Fonts collection.
 * [Font Awesome:](https://fontawesome.com/)
-    * Some icons on the site were sourced from Font Awesome.
-* [CDN Fonts:](https://www.cdnfonts.com/)
-    * CDN Fonts library was used to import the 'Gobold' font throughout css. 
+    * Some icons on the site were sourced from Font Awesome. 
 * [GitHub:](https://github.com/)
     * GitHub is used to store the project's code after being pushed from Git.
 * [Image Resizer:](https://imageresizer.com/)
     * Image Resizer was used to modify and resize the images on the website.
 * [Canva](https://canva.com)
     * Canva was used to create the design of the page layouts.
-* [Logo Design](https://logodesign.ai/)
-    * Logo Design was used to creat the image logo.
 * [Favicon Io](https://favicon.io/favicon-converter/)
     * Logo Design was used to creat the favicon images.
  

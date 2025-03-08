@@ -259,48 +259,57 @@ function addClueDigits(clueBox) {
 
 // Check the player's answer against the generated code
 function checkAnswer() {
-    const answerDigit = [...document.getElementsByClassName("check")];
-    const codeDigit = [...document.getElementsByClassName("codeDigit")];
-    const compDigit = [...new Set(codeDigit)];
+    const answerDigits = [...document.getElementsByClassName("check")];
+    const codeDigits = [...document.getElementsByClassName("codeDigit")];
+    const uniqueCodeDigits = [...new Set(codeDigits)];
 
-    let j = 0;
-    let k = 0;
+    let correctPositionCount = 0;
+    let correctColorCount = 0;
 
     // Count digits of the right color and in the right position
-    for (let i = 0; i < codeDigit.length; i++) {
-        if (codeDigit[i].textContent === answerDigit[i].textContent) {
-            j++;
-        }
-        if (j === codeDigit.length) {
-            displayClue(j, 0);
-            [...document.getElementsByClassName("codeDigit")].forEach(item => {
-                item.style.backgroundImage = "url('/assets/images/buttons/b-" + item.textContent + ".png')";
-            });
+    correctPositionCount = codeDigits.reduce((count, codeDigit, index) => {
+        return count + (codeDigit.textContent === answerDigits[index].textContent ? 1 : 0);
+    }, 0);
 
-            document.getElementById("gameContainer").classList.remove("started");
-
-            setTimeout(function() {
-                document.getElementById("difficulty").disabled = false;
-                document.getElementById("pictureContainer").hidden = false;
-                document.getElementById("gameContainer").hidden = true;
-                document.getElementById("pictureContainer").firstElementChild.textContent = "Well done! You cracked the code!";
-                document.getElementById("safe").src = "/assets/images/safe-opened2.png";
-            }, 2000);
-            return;
-        }
+    if (correctPositionCount === codeDigits.length) {
+        displayClue(correctPositionCount, 0);
+        revealCode();
+        endGame();
+        return;
     }
+
     // Count digits of the right color but in the wrong position
-    for (let i = 0; i < compDigit.length; i++) {
-        const digitToCount = compDigit[i].textContent;
-        const answerOccurrence = answerDigit.filter(digit => digit.textContent === digitToCount).length;
-        const codeOccurrence = codeDigit.filter(digit => digit.textContent === digitToCount).length;
-        k = k + Math.min(answerOccurrence, codeOccurrence);
-    }
-    answerDigit.forEach(item => {
-        item.classList.remove("check");
+    correctColorCount = uniqueCodeDigits.reduce((count, uniqueDigit) => {
+        const digitToCount = uniqueDigit.textContent;
+        const answerOccurrence = answerDigits.filter(digit => digit.textContent === digitToCount).length;
+        const codeOccurrence = codeDigits.filter(digit => digit.textContent === digitToCount).length;
+        return count + Math.min(answerOccurrence, codeOccurrence);
+    }, 0);
+
+    correctColorCount = Math.max(0, correctColorCount - correctPositionCount);
+
+    answerDigits.forEach(item => item.classList.remove("check"));
+    displayClue(correctPositionCount, correctColorCount);
+}
+
+// Reveal the code by updating the background images
+function revealCode() {
+    [...document.getElementsByClassName("codeDigit")].forEach(item => {
+        item.style.backgroundImage = `url('/assets/images/buttons/b-${item.textContent}.png')`;
     });
-    k = k >= j ? k - j : 0;
-    displayClue(j, k);
+}
+
+// End the game and display the success message
+function endGame() {
+    document.getElementById("gameContainer").classList.remove("started");
+
+    setTimeout(() => {
+        document.getElementById("difficulty").disabled = false;
+        document.getElementById("pictureContainer").hidden = false;
+        document.getElementById("gameContainer").hidden = true;
+        document.getElementById("pictureContainer").firstElementChild.textContent = "Well done! You cracked the code!";
+        document.getElementById("safe").src = "/assets/images/safe-opened2.png";
+    }, 2000);
 }
 
 // Display clues based on the player's guess

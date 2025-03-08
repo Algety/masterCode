@@ -1,7 +1,6 @@
 # To the Moon and Back Trips
 
-This website is designed for a fictional travel company, Travel Moon LTD, based 123 Moon Road, Space City, Solar System. It aims to engage more customers and boost sales for their exclusive trips to the Moon. The site contains a booking form to easily reserve a trip, a Traveller`s Guide page where visitors can explore detailed information about the trips, including accommodations, food options, and luggage policies, a reviews section showcasing testimonials from customers. 
-There’s also a contact section for potential customers to get in touch with Travel Moon LTD for any queries or additional information.
+This Mastermind or Master Mind is a code-breaking game for two players. 
 
 This website has been created as the second Milestone project for Code Institute's Web Application Development Course. 
 
@@ -139,29 +138,28 @@ To meet the needs of the business and visitors/customers of the site, the follow
  
 ## Testing
 ### Functional testing
-* Every link has been tested by hovering and clicking to ensure accessibility.
-* Pages display correctly across all screen sizes and devices.
-* Social media links function properly and open in new tabs.
-* Images appear as expected on every page.
+* The game page displayis displayed correctly across all screen sizes and devices.
+* Images appear as expected on the page and modals..
 * Buttons are fully operational, directing users to their intended destinations.
-### Validation
-The booking form fields are validated to ensure required fields are filled and inputs are of the correct type.
+* Code is generated and displayed correctly.
+* Draggable elements and dropzones are functional.
+* The player`s answer is checked and displayed in the clue box correctly.
+* The modals are displayed correctly.
 ### HTML and CSS Validation
 The W3C Markup Validator and W3C CSS Validator services were used to validate the project's pages for syntax errors.
 The screenshots below provide the results of testing.
 #### HTML checks
-![html-index-page](https://github.com/user-attachments/assets/8d43fbda-e318-499e-8a23-6f6343466861)
-![html-contact-us-page](https://github.com/user-attachments/assets/ee33dec1-aaee-41f6-b538-86c31d46cb30)
-![html-book-trip-page](https://github.com/user-attachments/assets/b6aba0c2-d762-4faf-bd27-69403e2c6cb0)
-![html-success-page](https://github.com/user-attachments/assets/470a441c-d694-4756-8e3c-50b64ddc254b)
-![image](https://github.com/user-attachments/assets/0288f93f-ad59-4f29-ada7-c6e4d474cf76)
+![html-index-page](...)
 
 #### CSS checks
-![css-index-page](https://github.com/user-attachments/assets/f7796fb8-54a3-4a57-86bf-84eaed3410e8)
-![css-contact-us-page](https://github.com/user-attachments/assets/014ecedf-8710-4ad0-ac2a-14486b1a3f71)
-![css-book-trip-page](https://github.com/user-attachments/assets/614c48fc-7b62-48ec-9da2-d67545f8d385)
-![css-success-page](https://github.com/user-attachments/assets/244abfa6-d3b8-47ce-9798-e1caabc3ed24)
-![image](https://github.com/user-attachments/assets/45ad2747-8017-4d1f-af9d-57269eb69c4b)
+![css-index-page](...)
+
+#### JavaScript checks
+No errors were returned when passing through JSHint. The following metrics were returned:
+
+There are 39 functions in this file.
+Function with the largest signature take 2 arguments, while the median is 1. Largest function has 22 statements in it, while the median is 2.
+The most complex function has a cyclomatic complexity value of 6 while the median is 1.
 
 ### Responsiveness
 The project was tested using the Chrome Developer Tools to verify responsiveness of the site.
@@ -186,13 +184,9 @@ The project was tested using the Chrome Developer Tools to verify responsiveness
       
 All the pages of the site are displayed correctly on different devices.
 
-![image](https://github.com/user-attachments/assets/d8136cbb-712c-401b-83a6-dd4c27a52bcd)
-![image](https://github.com/user-attachments/assets/7a1dc127-131b-433e-ac53-e8b5428e4979)
-![image](https://github.com/user-attachments/assets/908b9d04-cfc2-40a9-822a-4b50ed8a0c96)
+![image](...)
 
-![image](https://github.com/user-attachments/assets/6cf00740-928b-4c62-9c9c-6f224b273739)
-![image](https://github.com/user-attachments/assets/65ee80d8-df79-4826-93ad-fb741069d43e)
-![image](https://github.com/user-attachments/assets/6ee5975e-c3c2-48b4-9eb7-04c8d860f3ba)
+![image](...)
 
 ### Performance Accessibility and SEO
 Google Lighthouse was used to test Performance, Best Practices, Accessibility and SEO.

@@ -3,7 +3,7 @@ body {
     padding: 0;
     height: 100vh;
     width: 100vw;
-    background-image: url("assets/images/s-bgd.jpg"); /* Updated path */
+    background-image: url("/assets/images/s-bgd.jpg"); /* Updated path */
     background-size: cover;
     background-repeat: repeat-y;
     background-position: center;
@@ -44,7 +44,7 @@ body {
     padding: 3px;
     min-height: 20%;
     max-width: 60%;
-    background-image: url("assets/images/modal-bgd.png"); /* Updated path */
+    background-image: url("/assets/images/modal-bgd.png"); /* Updated path */
     background-size: cover;
     background-repeat: repeat-y;
     background-position: center;
@@ -202,7 +202,7 @@ button:disabled {
 }
 
 .answerDigit {
-    background-image: url("assets/images/buttons/b-9.png"); /* Updated path */
+    background-image: url("/assets/images/buttons/b-9.png"); /* Updated path */
     background-size: cover;
     background-position: center;
 }
@@ -212,25 +212,25 @@ button:disabled {
     height: 18%;
     /* min-width: 60px;
     height: 60px; */
-    background-image: url("assets/images/buttons/cover.png"); /* Updated path */
+    background-image: url("/assets/images/buttons/cover.png"); /* Updated path */
     background-size: cover;
     background-position: center;
     margin-inline: 1px;
-    color: transparent;
+    /* color: transparent; */
 }
 
 .palettColor {
     width: 45%;
     height: auto;
     text-align: center;
-    background-image: url("assets/images/buttons/b-9.png"); /* Updated path */
+    background-image: url("/assets/images/buttons/b-9.png"); /* Updated path */
     background-size: cover;
     background-position: center;
     color: transparent;
 }
 
 .clueDigit {
-    background-image: url("assets/images/buttons/bn-0.png"); /* Updated path */
+    background-image: url("/assets/images/buttons/bn-0.png"); /* Updated path */
     background-size: cover;
     background-position: center;
     min-width: 30px;

@@ -10,7 +10,7 @@ This website has been created as the second Milestone project for Code Institute
 
 ![image]()
 
-### View the live website [here](https://algety.github.io/travel-space/index.html)
+### View the live website [here](https://algety.github.io/masterCode/)
 ***
 ## Table of content: 
 * [Site Goals](#site-goals)

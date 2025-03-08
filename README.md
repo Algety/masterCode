@@ -45,9 +45,7 @@ This website has been created as the second Milestone project for Code Institute
 
 ## Site Goals
 The goals for this site are:
-- engage more customers and boost sales for the trips to the Moon;
-- build credibility and trust with potential and existing audience;
-- increase brand visibility.
+
   
 To achieve the goals, the site should meet the following criteria:
 - Entice potential customers with captivating visuals and engaging descriptions.
@@ -64,30 +62,26 @@ To achieve the goals, the site should meet the following criteria:
 * As a new visitor, I want to be able to easily contact the company for more information.
 * As a new visitor, I would like to see pictures from the trips to evaluate what the experience can offer me.
 * As a new visitor, I would like to be able to easily reserve a trip.
-#### Returning Visitor
-* As a returning visitor, I want to quickly find and access my account details to review past bookings and manage my preferences.
-* As a returning visitor, I want to be able to easily navigate throughout the site to find relevant content. 
-As a returning visitor, I want to access new testimonials or reviews from recent customers to reinforce my trust and confidence in the company.
-* As a returning visitor, I want to find updated galleries of photos from recent trips to relive memories and get excited about planning my next trip.
-* As a returning visitor, I want to leave a review on the site to share my experience and help other potential customers make informed decisions.
 
 ## Design
 ### Website Structure
-The website consists of four pages: Home Page, Contact Page, Booking Page, and Confirmation Page. The default loading page is the Home Page. Each page has a navigation bar at the top and a footer at the bottom. The Home Page features sections designed to capture the visitor’s interest and attention with a front banner, followed by information about Moon trips. This page links to all other pages on the website via the Navigation Menu at the top. The Contact Page provides the company’s office address, phone number, email, social media links, and a map showing the office location. The Booking Page includes a reservation form where visitors can select trip dates and the number of travelers. The Confirmation Page informs the visitor if the booking was completed successfully, enhancing the user experience.
-### Style
+The website consists 
+
+### Style and design
+Considering the character of the game, the goal is to ensure players can focus intently on the gameplay while making the colored pins prominently visible. The overall style of the game interface is industrial and modern, with a rugged and functional design. The concrete-textured background gives it a sturdy and serious feel, appropriate for a logic and deductive game.
+![tablet-screen](https://github.com/user-attachments/assets/bafdcb03-ce30-4f1e-8c05-5240a7601b0e)
+
 
 ### Colour
-To create a visually appealing and accessible website, two main colors with strong contrast were used — dark blue, associated with technology, space, and activity, and white, which together create a dynamic appearance for the site.
-![image](https://github.com/user-attachments/assets/ffbc6fbd-2b61-4abb-88b0-a837e358e046)
+Shades of grey and metallic tones dominate the layout, creating a cohesive and focused appearance. These colours were picked to create a contrast of bright coloured pins against the muted background and also for the aim of following the industrial style. The yellow lightbulb icon next to the title adds a touch of brightness and symbolism for ideas or solutions.
+
+![image]()
 ### Images
-Images with a similar color scheme, creating excitement, positive emotions, and a sci-fi feel, were chosen from free stock image websites.
-### Interactive Links
-Trough the footer, users can access the company social media links (Facebook, Instagramm and Twitter). Once these icons are clicked they are opened in a new tab.
+
 
 ## Features
-There are several features on this site to help users get the most out of their visit to the site.  
 ### General
-#### Navigation 
+#### 
 Each page has a Navigation bar section. This section is at the top of each page and is fixed allowing to navigate between pages without the need to scroll back to the top. The navigation bar contains a 'Book Now' button, highlighted in a contrasting color to be easily noticeable, directing the user to the Booking page.
 ![image](https://github.com/user-attachments/assets/19618722-d9f5-4742-a7d7-e91203431eab)
 ![image](https://github.com/user-attachments/assets/95d6c766-259b-4541-aa45-8217601bdc7c)

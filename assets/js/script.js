@@ -141,7 +141,7 @@ function displayPalett() {
         digit.className = "palettColor draggable";
         digit.setAttribute("draggable", "true");
         digit.id = "palettDigit-" + i;
-        digit.style.backgroundImage = "url('/assets/images/buttons/b-" + i + ".png')";
+        digit.style.backgroundImage = "url('./assets/images/buttons/b-" + i + ".png')";
         palettBox.appendChild(digit);
     }
     // Reinitialize drag-and-drop for newly created elements
@@ -250,7 +250,7 @@ function addClueDigits(clueBox) {
     for (let i = 1; i <= numberOfDigits; i++) {
         const clueDigit = document.createElement("div");
         clueDigit.textContent = 0;
-        clueDigit.style.backgroundImage = "url('/assets/images/buttons/bn-0.png')";
+        clueDigit.style.backgroundImage = "url('./assets/images/buttons/bn-0.png')";
         clueDigit.className = "clueDigit activeClue";
         clueDigit.id = "clueDigit-" + i;
         clueBox.appendChild(clueDigit);
@@ -295,7 +295,7 @@ function checkAnswer() {
 // Reveal the code by updating the background images
 function revealCode() {
     [...document.getElementsByClassName("codeDigit")].forEach(item => {
-        item.style.backgroundImage = `url('/assets/images/buttons/b-${item.textContent}.png')`;
+        item.style.backgroundImage = `url('./assets/images/buttons/b-${item.textContent}.png')`;
     });
 }
 
@@ -308,7 +308,7 @@ function endGame() {
         document.getElementById("pictureContainer").hidden = false;
         document.getElementById("gameContainer").hidden = true;
         document.getElementById("pictureContainer").firstElementChild.textContent = "Well done! You cracked the code!";
-        document.getElementById("safe").src = "/assets/images/safe-opened2.png";
+        document.getElementById("safe").src = "./assets/images/safe-opened2.png";
     }, 2000);
 }
 
@@ -317,11 +317,11 @@ function displayClue(j, k) {
     const clueDigits = [...document.getElementsByClassName("activeClue")];
     for (let i = 0; i < j; i++) {
         clueDigits[i].textContent = 2;
-        clueDigits[i].style.backgroundImage = "url('/assets/images/buttons/bn-2.png')";
+        clueDigits[i].style.backgroundImage = "url('./assets/images/buttons/bn-2.png')";
     }
     for (let i = j; i < k + j; i++) {
         clueDigits[i].textContent = 1;
-        clueDigits[i].style.backgroundImage = "url('/assets/images/buttons/bn-1.png')";
+        clueDigits[i].style.backgroundImage = "url('./assets/images/buttons/bn-1.png')";
     }
     clueDigits.forEach(item => {
         item.classList.remove("activeClue");
@@ -337,7 +337,7 @@ function showInstruction() {
 // Show the new game modal and attach event listeners
 function showNewGameModal() {
     document.getElementById("modalBody").innerHTML = 
-    "<h2><img id='ideaModal' src='/assets/images/idea.png' alt='idea icon'>Start a new game</h2><div id='gameModal'><p>Difficulty</p><button type='button' data-type='difficulty' id='difficulty'>Easy</button><button data-type='start' data-bs-dismiss='modal'>Start</button></div>";
+    "<h2><img id='ideaModal' src='./assets/images/idea.png' alt='idea icon'>Start a new game</h2><div id='gameModal'><p>Difficulty</p><button type='button' data-type='difficulty' id='difficulty'>Easy</button><button data-type='start' data-bs-dismiss='modal'>Start</button></div>";
 
     // Attach event listener to the difficulty button after it is added to the DOM
     const difficultyButton = document.querySelector('[data-type="difficulty"]');

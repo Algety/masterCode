@@ -234,10 +234,11 @@ This site was deployed by completing the following steps:
    
 ## Credits
 ### Content
-1. The icons - [Font Awesome](https://fontawesome.com/), [Google Fonts](https://fonts.google.com/)
-2. The logo and favicon created with help [Logo Design](https://logodesign.ai/)
-3. Gobolf Font - [CDN Fonts](https://www.cdnfonts.com/)
+1. The check icon for the submit button - [Font Awesome](https://fontawesome.com/), [Google Fonts](https://fonts.google.com/)
+2. The game logo and favicon icon - [Flaticon](https://www.flaticon.com/)
+3. Images edited, templates and layouts made in Canvas - [Canvas](https://www.canva.com/)
 4. Favicon sized with [Favicon Io](https://favicon.io/favicon-converter/)
-5. Free images - [Freepik](https://www.freepik.com/), [Pexel](https://www.pexels.com/)
+5. Free images - [Freepik](https://www.freepik.com/), [PNGTree](https://pngtree.com/)
+6. Images resized with - [Image Resizer](https://imageresizer.com/)
 ### Code
-1. Code samples have been adapted specifically for the site - [W3 Schools](https://www.w3schools.com/), [Stack Overflow](https://stackoverflow.com/), [Bootstrap Documentation](https://getbootstrap.com/docs/5.3/).
+1. Code samples have been adapted specifically for the site - [W3 Schools](https://www.w3schools.com/), [Bootstrap Documentation](https://getbootstrap.com/docs/5.3/).

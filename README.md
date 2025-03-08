@@ -79,26 +79,31 @@ Considering the character of the game, the goal is to ensure players can focus i
 
 ![tablet-screen](https://github.com/user-attachments/assets/bafdcb03-ce30-4f1e-8c05-5240a7601b0e)
 
-
 ### Colour
 Shades of grey and metallic tones dominate the layout, creating a cohesive and focused appearance. These colours were picked to create a contrast of bright coloured pins against the muted background and also for the aim of following the industrial style. The yellow lightbulb icon next to the title adds a touch of brightness and symbolism for ideas or solutions.
 
 ![image]()
-### Images
-
 
 ## Features
-### General
-#### Main container
+### Main container
 The main container resembles a device or machine with elements like metal plates, screws, and a vault door, evoking a sense of machinery and a secure facility. The container includes the control container and the game container. The control container’s appearance remains constant throughout the game. The game container, however, displays a message and an image of a locked vault before the game starts, the game board during the game, and an image of an unlocked vault if the player wins.
 
 ![image](https://github.com/user-attachments/assets/dc8acf7e-0f89-421d-ae28-ab4605f38b98)
 ![image](https://github.com/user-attachments/assets/a8bd8abb-a0f2-4cec-8c32-748e04b3d907)
 
-#### Drag and drop elements
+### Drag and drop elements
 The palette box contains pegs of 8 colors which a player drags to an answer box below. The answer box contains drop zones where the colored pegs are placed. After the answer is submitted, the drop zones become disabled. After each unsuccessful guess, a new answer box is added for another try.
 
 ![image](https://github.com/user-attachments/assets/7f4870c0-dec5-4031-b9b1-c0914e5cf615)
+
+### Modals
+There are 3 modals used in the site: a modal for setting the difficulty of the game, activated by the "New game" button; a modal with instructions, activated by the "How to play" button; and a modal with a message to the player if they try to submit an incomplete answer code.
+
+![image](https://github.com/user-attachments/assets/f31fc986-56c6-47e4-8204-0503b1a41339)
+![image](https://github.com/user-attachments/assets/3e5e9fb7-cfb7-4cdf-b4b8-75c823d4b34a)
+![image](https://github.com/user-attachments/assets/e793d4a6-227a-4897-8473-3337ba4c4b11)
+
+
 
 ## Future Features
 1. Implement functionality for the Restart button.
@@ -184,13 +189,7 @@ Google Lighthouse was used to test Performance, Best Practices, Accessibility an
 
 
 #### Mobile Results
-![lighthouse-mobile-index-page](https://github.com/user-attachments/assets/7d164ab3-e9fd-4a75-b4cd-596f3ec0a371)
-![lighthouse-mobile-contact-us-page](https://github.com/user-attachments/assets/50ff2700-a7ec-459f-a59b-0d544b921cae)
-![lighthouse-mobile-book-trip-page](https://github.com/user-attachments/assets/d48520ca-72fb-40ac-9207-1cddd0840296)
-![lighthouse-mobile-success-page](https://github.com/user-attachments/assets/0dff1843-21bb-462a-ac34-4b283a241079)
-![image](https://github.com/user-attachments/assets/1ba80b2c-fd5d-4f76-8b20-87c7538c885a)
-
-
+![lighthouse-mobile-index-page]()
 
 ## Deployment
 Development on [GitPod](https://gitpod.io/) with the Code Institute template, stored at [GitHub](https://github.com/).

@@ -1,4 +1,4 @@
-# To the Moon and Back Trips
+# Code Breaker (Mastermind)
 
 The Code Breaker game, also known as Mastermind or Master Mind, is a challenging logic and deductive game for two players. One player (the codemaker) sets a secret code of colored pegs, and the other player (the codebreaker) tries to guess it, receiving feedback on their guesses.
 

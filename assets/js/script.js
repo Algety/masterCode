@@ -68,19 +68,15 @@ document.addEventListener("DOMContentLoaded", function() {
         button.addEventListener("click", function() {
             const clickedButton = this.getAttribute("data-type");
             switch (clickedButton) {
-                case "difficulty":
-                    difficultySwitch();
-                    break;
-                case "start":
-                    const difficulty = document.querySelector('[data-type="difficulty"]').textContent;
-                    const gameContainerClass = document.getElementById("gameContainer").classList;
-                    if (gameContainerClass.contains("started")) {
-                        alert("Start a new game?");
-                    }
-                    startNewGame(difficulty);
-                    break;
+                // case "start":
+                //     const difficulty = document.querySelector('[data-type="difficulty"]').textContent;
+                //     startNewGame(difficulty);
+                //     break;
                 case "instruction":
                     showInstruction();
+                    break;
+                case "newGame":
+                    showNewGameModal();
                     break;
             }
         });
@@ -104,7 +100,7 @@ function startNewGame(difficulty) {
         child.innerHTML = "";
     });
     gameContainer.classList.add("started");
-    document.getElementById("difficulty").disabled=true;
+    // document.getElementById("difficulty").disabled=true;
     document.getElementById("pictureContainer").hidden = true;
     document.getElementById("gameContainer").hidden = false;
     const code = genCode(difficulty);
@@ -183,21 +179,14 @@ function addDigitBox(answerBox) {
     reinitializeDragAndDrop();
 }
 
-// Add a box to display the number of tries
-// function addNumberOfTries(answerBox) {
-//     const attemptNum = document.createElement("div");
-//     attemptNum.className = "answerItem";
-//     attemptNum.id = "attemptNum";
-//     attemptNum.innerHTML = document.getElementsByClassName("answerBox").length;
-//     answerBox.appendChild(attemptNum);
-// }
-
 // Add a submit button for the player to submit their guess
 function addSubmitButton(answerBox) {
     const submitButton = document.createElement("button");
     submitButton.className = "answerItem";
     submitButton.id = "submitAnswer";
     submitButton.setAttribute("data-type", "submitButton");
+    submitButton.setAttribute("data-bs-toggle","modal");
+    submitButton.setAttribute("data-bs-target","#newGame");
     submitButton.innerHTML = "<i class='fa-solid fa-check'></i>";
     // Define a named function for the click event
     function handleClick() {
@@ -209,6 +198,7 @@ function addSubmitButton(answerBox) {
     submitButton.addEventListener("click", handleClick);
     answerBox.appendChild(submitButton);
     return submitButton, handleClick;
+    
 }
 
 // Check if the player's answer is complete
@@ -216,7 +206,8 @@ function isAnswerComplete() {
     const numberOfDigitsInAnswer = [...document.getElementsByClassName("added")].length;
     const numberOfDigits = document.getElementsByClassName("codeDigit").length;
     if (numberOfDigitsInAnswer < numberOfDigits) {
-        alert("You need to complete your code");
+        document.getElementById("modalBody").innerHTML = 
+    "<p>You need to complete your code</p>";
     }
     return numberOfDigitsInAnswer >= numberOfDigits;
 }
@@ -225,6 +216,7 @@ function isAnswerComplete() {
 function submitButtonClicked(submitButton, handleClick) {
     submitButton.className = "clicked";
     submitButton.setAttribute("disabled", "true");
+   
     [...document.getElementsByClassName("added")].forEach(item => {
         item.classList.remove("added");
         item.classList.remove("draggable");
@@ -239,7 +231,9 @@ function submitButtonClicked(submitButton, handleClick) {
     });
     checkAnswer();
     displayClue();
-    addAnswerBox();
+    if (document.document.querySelector(".started")) {
+        addAnswerBox();
+    }
 }
 
 // Add a box to display clues for the player's guess
@@ -283,14 +277,18 @@ function checkAnswer() {
             [...document.getElementsByClassName("codeDigit")].forEach(item => {
                 item.style.backgroundImage = "url('/assets/images/buttons/b-" + item.textContent + ".png')";
             })
-           
-       
+            
             document.getElementById("gameContainer").classList.remove("started");
+
+           
+            
+            setTimeout(function(){
+           
             document.getElementById("difficulty").disabled=false;
             document.getElementById("pictureContainer").hidden = false;
             document.getElementById("gameContainer").hidden = true;
             document.getElementById("pictureContainer").firstElementChild.textContent = "Well done! You cracked the code!";
-            document.getElementById("safe").src="/assets/images/safe-opened.png";
+            document.getElementById("safe").src="/assets/images/safe-opened2.png";}, 2000);
             return;
         }  
     }
@@ -324,8 +322,24 @@ function displayClue(j, k) {
     });
 }
 
-
-// Show game instructions (function to be implemented)
+// Show game instructions
 function showInstruction() {
-    // Implementation needed
+    document.getElementById("modalBody").innerHTML = 
+    "<p>The objective of the game is to guess the code. Use your logic and deduction to figure out the correct combination</p><p>Colors can repeat. Drag and drop color pins from the palette to the answer box, then click the check button to submit your guess.</p><p>You'll get clues: a red pin means the <strong>color and position</strong> are correct, and a yellow pin means the color is right but in the <strong>wrong</strong> position.</p><p>Good luck!</p>";
+}
+
+function showNewGameModal() {
+    document.getElementById("modalBody").innerHTML = 
+    "<h2><img id='ideaModal' src='assets/images/idea.png' alt='idea icon'>Start a new game</h2><div id='gameModal'><p>Difficulty</p><button type='button' data-type='difficulty' id='difficulty'>Easy</button><button data-type='start' data-bs-dismiss='modal'>Start</button></div>";
+
+    // Attach event listener to the difficulty button after it is added to the DOM
+    const difficultyButton = document.querySelector('[data-type="difficulty"]');
+    difficultyButton.addEventListener("click", difficultySwitch);
+
+    // Attach event listener to the start button after it is added to the DOM
+    const startButton = document.querySelector('[data-type="start"]');
+    startButton.addEventListener("click", function() {
+        const difficulty = document.querySelector('[data-type="difficulty"]').textContent;
+        startNewGame(difficulty);
+    });
 }

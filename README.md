@@ -19,7 +19,6 @@ This website has been created as the second Milestone project for Code Institute
 * [Design](#design)
     * [Website Structure](#website-structure)
     * [Colour](#colour)
-    * [Fonts](#fonts)
     * [Images](#images)
 * [Features](#features)  
 * [Future Features](#future-features)

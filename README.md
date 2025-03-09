@@ -44,23 +44,28 @@ This website has been created as the second Milestone project for Code Institute
 
 ## Site Goals
 The goals for this site are:
-
+* Provide an engaging and challenging game.
+* To improve logical deduction and problem-solving skills, to enhance players’ cognitive abilities and strategic thinking.
+* Ensure accessibility and usability for all users.
   
 To achieve the goals, the site should meet the following criteria:
-- Entice potential customers with captivating visuals and engaging descriptions.
-- Build credibility and trust by sharing customer testimonials and endorsements, and providing detailed information about the trip.
-- Provide an easy-to-use option for reserving a trip.
+* Intuitive and user-friendly interface.
+* Clear and concise instructions.
+* Adjustable difficulty levels: The site should offer different difficulty settings to cater to players with varying levels of expertise.
+* Responsive design: The site should be fully functional and visually appealing on various devices and screen sizes, ensuring accessibility for all players.
+* Immediate feedback on guesses: The game should provide clear and immediate feedback on players' guesses to help them improve and stay engaged.
+
 
 ## User Experience - UX
 ### User stories
-#### New Visitor
-* As a new visitor, I would like to learn more about flights to the Moon to understand if I want to experience this trip.
-* As a new visitor, I want to be able to easily navigate throughout the site to find relevant content.
-* As a new visitor, I would like to know more about the company providing the trips to decide if I can trust them.
-* As a new visitor, I would like to read testimonials to understand if these trips are worth trying.
-* As a new visitor, I want to be able to easily contact the company for more information.
-* As a new visitor, I would like to see pictures from the trips to evaluate what the experience can offer me.
-* As a new visitor, I would like to be able to easily reserve a trip.
+#### A player
+* As a user, I want to easily understand the main purpose about the site.
+* As a user, I want to be able to easily navigate throughout the site to find relevant content.
+* As a user, I want this website to be responsive to my device.
+* As a player, I want to read the rules of the game to understand how to play and what the objectives are.
+* As a player, I would like to set the difficulty level of the game so that I can choose a challenge that suits my skill level.
+* As a player, I would like to see feedback on my guesses so that I can improve my strategy and get closer to cracking the code.
+* As a player, I want to restart the game quickly so that I can try different strategies without delay.
 
 ## Design
 ### Structure
@@ -170,12 +175,10 @@ The project was tested using the Chrome Developer Tools and Amiresponsive site t
     * Samsung Galaxy A51/71
     * Nest Hub
     * Nest Hub Max
- 
       
+![image](https://github.com/user-attachments/assets/abff4a2f-0321-4a80-8b44-b082fc5527ac)
+ 
 All the pages of the site are displayed correctly on different devices.
-
-![alt text](image-3.png)
-
 
 ### Performance Accessibility and SEO
 Google Lighthouse was used to test Performance, Best Practices, Accessibility and SEO.

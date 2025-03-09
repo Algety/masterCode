@@ -307,7 +307,7 @@ function endGame() {
         document.getElementById("difficulty").disabled = false;
         document.getElementById("pictureContainer").hidden = false;
         document.getElementById("gameContainer").hidden = true;
-        document.getElementById("pictureContainer").firstElementChild.textContent = "Well done! You cracked the code!";
+        document.getElementById("pictureContainer").lastElementChild.textContent = "You cracked the code!";
         document.getElementById("safe").src = "./assets/images/safe-opened2.png";
     }, 2000);
 }

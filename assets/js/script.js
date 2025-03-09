@@ -26,11 +26,52 @@ function handleDrop(event) {
     initializeDraggableElements();
 }
 
+// Handle touch start event
+function handleTouchStart(event) {
+    event.preventDefault();
+    const touch = event.touches[0];
+    const draggedElement = event.target;
+    draggedElement.classList.add("dragging");
+    draggedElement.style.position = "absolute";
+    draggedElement.style.left = `${touch.pageX}px`;
+    draggedElement.style.top = `${touch.pageY}px`;
+}
+
+// Handle touch move event
+function handleTouchMove(event) {
+    event.preventDefault();
+    const touch = event.touches[0];
+    const draggedElement = document.querySelector(".dragging");
+    if (draggedElement) {
+        draggedElement.style.left = `${touch.pageX}px`;
+        draggedElement.style.top = `${touch.pageY}px`;
+    }
+}
+
+// Handle touch end event
+function handleTouchEnd(event) {
+    event.preventDefault();
+    const draggedElement = document.querySelector(".dragging");
+    if (draggedElement) {
+        draggedElement.classList.remove("dragging");
+        const dropzone = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+        if (dropzone && dropzone.classList.contains("dropzone")) {
+            dropzone.appendChild(draggedElement);
+            draggedElement.classList.add("added");
+            draggedElement.setAttribute("draggable", "false");
+            initializeDraggableElements();
+        }
+    }
+}
+
 // Make draggable elements functional
 function initializeDraggableElements() {
     const draggables = document.querySelectorAll(".draggable");
     draggables.forEach(draggable => {
         draggable.addEventListener("dragstart", getDragId);
+        draggable.addEventListener("touchstart", handleTouchStart);
+        draggable.addEventListener("touchmove", handleTouchMove);
+        draggable.addEventListener("touchend", handleTouchEnd);
     });
 }
 

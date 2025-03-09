@@ -102,12 +102,10 @@ There are 3 modals used in the site: a modal for setting the difficulty of the g
 ![image](https://github.com/user-attachments/assets/3e5e9fb7-cfb7-4cdf-b4b8-75c823d4b34a)
 ![image](https://github.com/user-attachments/assets/e793d4a6-227a-4897-8473-3337ba4c4b11)
 
-
-
 ## Future Features
 1. Implement functionality for the Restart button.
-2. Confine the number of trys.
-3. Add a scroll to the reasoning box.
+2. Limit the number of tries.
+3. Add a scrollbar to the reasoning box.
 
 ## Technologies Used
 ### Languages Used 

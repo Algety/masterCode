@@ -152,7 +152,7 @@ There are 43 functions in this file. Function with the largest signature take 3 
 Largest function has 15 statements in it, while the median is 2. The most complex function has a cyclomatic complexity value of 4 while the median is 1.
 
 ### Responsiveness
-The project was tested using the Chrome Developer Tools to verify responsiveness of the site.
+The project was tested using the Chrome Developer Tools and Amiresponsive site to verify responsiveness of the site.
 * Devices tested using the Google Developer Tools emulator:
     * iPhone XR
     * iPhone 12 Pro
@@ -174,9 +174,8 @@ The project was tested using the Chrome Developer Tools to verify responsiveness
       
 All the pages of the site are displayed correctly on different devices.
 
-![image](...)
+![alt text](image-3.png)
 
-![image](...)
 
 ### Performance Accessibility and SEO
 Google Lighthouse was used to test Performance, Best Practices, Accessibility and SEO.

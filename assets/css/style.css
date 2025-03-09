@@ -92,7 +92,7 @@ button {
     display: inline-block;
     min-width: 15px;
     background-color: rgb(126 127 141 / 35%);
-    /* border: 2px solid rgb(88, 87, 87); */
+    border: solid rgb(120 120 120);
     border-radius: 3px;
     padding: 1px 5px 1px 5px;
     box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);

@@ -154,8 +154,7 @@ During the testing process at various stages of development, several bugs were i
 Three players tested the game. They noted that after 10 attempts, retrieving pins from the palette and dragging them to the bottom row of the answer pins became inconvenient. To address this issue, a scroll bar will be added to the reasoning container.
 
 Additionally, new players found it unintuitive to drag pins from the palette box to the answer box. Although this instruction is provided in the rules, players who skipped reading the instructions were confused. To enhance the user experience, hint tips will be implemented in a future update.
-
-Also, the colours of the pink and purple pins, as well as the red and orange pins, need to be more distinct from each other.
+Furthermore, players found it confusing that the clue pin indicating the correct color and position is red, rather than the expected green. This will also be addressed in a future update. Also, the colours of the pink and purple pins, as well as the red and orange pins, need to be more distinct from each other.
 
 ### HTML, CSS and JS Validation
 The W3C Markup Validator and W3C CSS Validator services were used to validate the project's pages for syntax errors.

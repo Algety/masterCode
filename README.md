@@ -177,6 +177,7 @@ The project was tested using the Chrome Developer Tools and Amiresponsive site t
     * Nest Hub Max
       
 ![image](https://github.com/user-attachments/assets/abff4a2f-0321-4a80-8b44-b082fc5527ac)
+![alt text](image-4.png)
  
 All the pages of the site are displayed correctly on different devices.
 

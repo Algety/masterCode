@@ -214,13 +214,16 @@ button:disabled {
     align-items: center;
     justify-content: center;
     color: transparent;
+    font-size: 0;
 }
+
 
 /* Styles for answer digits */
 .answerDigit {
     background-image: url("../images/buttons/b-9.png"); /* Updated path */
     background-size: cover;
     background-position: center;
+    vertical-align: top;
 }
 
 /* Styles for code digits */
@@ -232,6 +235,7 @@ button:disabled {
     background-position: center;
     margin-inline: 1px;
     color: transparent;
+    font-size: 1px;
 }
 
 /* Styles for palette colors */
@@ -243,6 +247,7 @@ button:disabled {
     background-size: cover;
     background-position: center;
     color: transparent;
+    font-size: 0;
 }
 
 /* Styles for clue digits */
@@ -256,6 +261,7 @@ button:disabled {
     align-items: center;
     justify-content: center;
     color: transparent;
+    font-size: 0;
 }
 
 /* Styles for draggable elements */

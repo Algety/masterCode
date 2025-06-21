@@ -301,8 +301,11 @@ function addClueDigits(clueBox) {
 // Check the player's answer against the generated code
 function checkAnswer() {
     const answerDigits = [...document.getElementsByClassName("check")];
+    console.log(answerDigits);
     const codeDigits = [...document.getElementsByClassName("codeDigit")];
+    console.log(codeDigits);
     const uniqueCodeDigits = [...new Set(codeDigits)];
+    console.log(uniqueCodeDigits);
 
     let correctPositionCount = 0;
     let correctColorCount = 0;

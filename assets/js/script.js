@@ -300,24 +300,24 @@ function addClueDigits(clueBox) {
 
 // Check the player's answer against the generated code
 function checkAnswer() {
-    const answerDigits = [...document.getElementsByClassName("check")];
+    const answerDigits = [...document.getElementsByClassName("check")].map(div => div.textContent.trim());
     console.log(answerDigits);
-    const codeDigits = [...document.getElementsByClassName("codeDigit")];
-    console.log(codeDigits);
-    const codeValues = codeDigits.map(div => div.textContent.trim());
+    // const codeValues = [...document.getElementsByClassName("codeDigit")].map(div => div.textContent.trim());
+     const codeValues = ['1', '2', '2', '2', '3'];
     console.log(codeValues);
-    const uniqueCodeDigits = [...new Set(codeDigits)];
+    const uniqueAnswerDigits =  [...new Set(answerDigits)];
+    console.log(uniqueAnswerDigits);
+    const uniqueCodeDigits = [...new Set(codeValues)];
     console.log(uniqueCodeDigits);
-
     let correctPositionCount = 0;
     let correctColorCount = 0;
 
     // Count digits of the right color and in the right position
-    correctPositionCount = codeDigits.reduce((count, codeDigit, index) => {
-        return count + (codeDigit.textContent === answerDigits[index].textContent ? 1 : 0);
+    correctPositionCount = codeValues.reduce((count, codeDigit, index) => {
+        return count + (codeDigit === answerDigits[index] ? 1 : 0);
     }, 0);
 
-    if (correctPositionCount === codeDigits.length) {
+    if (correctPositionCount === codeValues.length) {
         displayClue(correctPositionCount, 0);
         revealCode();
         endGame();
@@ -325,16 +325,16 @@ function checkAnswer() {
     }
 
     // Count digits of the right color but in the wrong position
-    correctColorCount = uniqueCodeDigits.reduce((count, uniqueDigit) => {
-        const digitToCount = uniqueDigit.textContent;
-        const answerOccurrence = answerDigits.filter(digit => digit.textContent === digitToCount).length;
-        const codeOccurrence = codeDigits.filter(digit => digit.textContent === digitToCount).length;
+    correctColorCount = uniqueAnswerDigits.reduce((count, digit) => {
+        const answerOccurrence = answerDigits.filter(d => d === digit).length;
+        const codeOccurrence = codeValues.filter(c => c === digit).length;
+        console.log(answerOccurrence + " " + codeOccurrence);
         return count + Math.min(answerOccurrence, codeOccurrence);
     }, 0);
 
     correctColorCount = Math.max(0, correctColorCount - correctPositionCount);
 
-    answerDigits.forEach(item => item.classList.remove("check"));
+    document.querySelectorAll(".check").forEach(item => item.classList.remove("check"));
     displayClue(correctPositionCount, correctColorCount);
 }
 

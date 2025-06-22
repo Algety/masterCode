@@ -1,8 +1,8 @@
 // Initialize the game when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const buttons = document.getElementsByTagName("button");
     for (const button of buttons) {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             const clickedButton = this.getAttribute("data-type");
             switch (clickedButton) {
                 case "start":
@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-
 });
 
 // Switch the difficulty level between Easy and Medium
@@ -56,7 +55,7 @@ function genCode(difficulty) {
 // Place the generated code in the code container
 function placeCode(code) {
     const codeContainer = document.getElementById("codeToGuess");
-    codeContainer.innerHTML = ""; // Clear previous code
+    codeContainer.innerHTML = "";
     for (const item of code) {
         const digit = document.createElement("div");
         digit.textContent = item;
@@ -68,12 +67,12 @@ function placeCode(code) {
 // Display the palette of available digits
 function displayPalett() {
     const palettBox = document.getElementById("palettBox");
-    palettBox.innerHTML = ""; // Clear previous palette
+    palettBox.innerHTML = "";
     for (let i = 1; i < 9; i++) {
         const digit = document.createElement("div");
-        digit.textContent = i;
+        // digit.textContent = i;
         digit.className = "palettColor";
-        digit.id = "palettDigit-" + i;
+        // digit.id = "palettDigit-" + i;
         digit.style.backgroundImage = "url('./assets/images/buttons/b-" + i + ".png')";
         palettBox.appendChild(digit);
     }
@@ -93,20 +92,13 @@ function addAnswerBox() {
 
 // Add a box for the player to input their guess digits
 function addDigitBox(answerBox) {
-    // const digitBox = document.createElement("div");
-    // digitBox.className = "answerItem";
-    // answerBox.appendChild(digitBox);
     const numberOfDigits = document.getElementsByClassName("codeDigit").length;
     for (let i = 1; i <= numberOfDigits; i++) {
         const digit = document.createElement("div");
-        // digit.textContent = "";
         digit.textContent = i;
         digit.className = "answerDigit";
-        // digit.id = "answerDigit-" + i;
-        //!!!! digitBox.appendChild(digit);
         answerBox.appendChild(digit);
     }
-    // Add event listener to the answerDigit element:
     setupAnswerDigitCycling();
 }
 
@@ -114,19 +106,15 @@ function setupAnswerDigitCycling() {
     const answerDigits = document.getElementsByClassName("answerDigit");
     for (const answerDigit of answerDigits) {
         answerDigit.dataset.colorIndex = 0;
-        // answerDigit.dataset.digit = 1;
-        // answerDigit.style.backgroundImage = `url('${paletteImages[0]}')`;
-        // answerDigit.textContent = "";
-        answerDigit.addEventListener("click", function() {
+        answerDigit.addEventListener("click", function () {
             if (this.classList.contains("disabled")) return;
             this.classList.add("clickedAnswer");
             let clicked = parseInt(this.dataset.colorIndex, 10);
             clicked = (clicked + 1) % 8;
             this.dataset.colorIndex = clicked;
-            // this.dataset.digit = clicked + 1;
-            this.style.backgroundImage = `url('./assets/images/buttons/b-${clicked}.png')`; 
-        })
-    }  
+            this.style.backgroundImage = `url('./assets/images/buttons/b-${clicked}.png')`;
+        });
+    }
 }
 
 // Add a submit button for the player to submit their guess
@@ -136,13 +124,13 @@ function addSubmitButton(answerBox) {
     submitButton.id = "submitAnswer";
     submitButton.setAttribute("data-type", "submitButton");
     submitButton.innerHTML = "<i class='fa-solid fa-check'></i>";
-    // Define a named function for the click event
+
     function handleClick() {
         if (isAnswerComplete()) {
-            submitButtonClicked(submitButton, handleClick); // Pass the reference to the handler
+            submitButtonClicked(submitButton, handleClick);
         }
     }
-    // Add the event listener
+
     submitButton.addEventListener("click", handleClick);
     answerBox.appendChild(submitButton);
     return submitButton, handleClick;
@@ -154,7 +142,6 @@ function isAnswerComplete() {
     const numberOfDigits = document.getElementsByClassName("codeDigit").length;
     if (numberOfDigitsInAnswer < numberOfDigits) {
         document.getElementById("modalBody").innerHTML = "<p>You need to complete your code</p>";
-        // Show the modal
         const modal = new bootstrap.Modal(document.getElementById("newGame"));
         modal.show();
         return false;
@@ -168,14 +155,9 @@ function submitButtonClicked(submitButton, handleClick) {
     submitButton.setAttribute("disabled", "true");
 
     [...document.getElementsByClassName("clickedAnswer")].forEach(item => {
-        // item.classList.remove("clickedAnswer");
         item.classList.add("disabled");
     });
-    // const activeDigitBoxes = document.getElementsByClassName("active");
-    // [...activeDigitBoxes].forEach(activeDigitBox => {
-    //     activeDigitBox.firstChild.classList.add("check");
-    //     activeDigitBox.classList.remove("active");
-    // });
+
     checkAnswer();
     displayClue();
     if (document.querySelector(".started")) {
@@ -211,16 +193,11 @@ function checkAnswer() {
     const answerDigits = [...document.getElementsByClassName("clickedAnswer")].map(div => div.dataset.colorIndex);
     console.log(answerDigits);
     const codeValues = [...document.getElementsByClassName("codeDigit")].map(div => div.textContent.trim());
-    //  const codeValues = ['1', '2', '2', '2', '3'];
     console.log(codeValues);
-    const uniqueAnswerDigits =  [...new Set(answerDigits)];
-    console.log(uniqueAnswerDigits);
-    const uniqueCodeDigits = [...new Set(codeValues)];
-    console.log(uniqueCodeDigits);
+    const uniqueAnswerDigits = [...new Set(answerDigits)];
     let correctPositionCount = 0;
     let correctColorCount = 0;
 
-    // Count digits of the right color and in the right position
     correctPositionCount = codeValues.reduce((count, codeDigit, index) => {
         return count + (codeDigit === answerDigits[index] ? 1 : 0);
     }, 0);
@@ -232,7 +209,6 @@ function checkAnswer() {
         return;
     }
 
-    // Count digits of the right color but in the wrong position
     correctColorCount = uniqueAnswerDigits.reduce((count, digit) => {
         const answerOccurrence = answerDigits.filter(d => d === digit).length;
         const codeOccurrence = codeValues.filter(c => c === digit).length;
@@ -284,22 +260,20 @@ function displayClue(j, k) {
 
 // Show game instructions
 function showInstruction() {
-    document.getElementById("modalBody").innerHTML = 
-    "<p>The objective of the game is to guess the code. Use your logic and deduction to figure out the correct combination</p><p>Colours in the code can repeat. Click the pins in the answer box to change their colour, with every click they will change their colour. When you are ready to check your answer, click the check button to submit your guess.</p><p>You'll get clues: a red pin means there is a pin which <strong>color and position</strong> are correct, and a yellow pin means there is a pin which color is right but it is in the <strong>wrong</strong> position.</p><p>Good luck!</p>";
+    document.getElementById("modalBody").innerHTML =
+        "<p>The objective of the game is to guess the code. Use your logic and deduction to figure out the correct combination</p><p>Colours in the code can repeat. Click the pins in the answer box to change their colour, with every click they will change their colour. When you are ready to check your answer, click the check button to submit your guess.</p><p>You'll get clues: a red pin means there is a pin which <strong>color and position</strong> are correct, and a yellow pin means there is a pin which color is right but it is in the <strong>wrong</strong> position.</p><p>Good luck!</p>";
 }
 
 // Show the new game modal and attach event listeners
 function showNewGameModal() {
-    document.getElementById("modalBody").innerHTML = 
-    "<h2><img id='ideaModal' src='./assets/images/idea.png' alt='idea icon'>Start a new game</h2><div id='gameModal'><p>Difficulty</p><button type='button' data-type='difficulty' id='difficulty'>Easy</button><button data-type='start' data-bs-dismiss='modal'>Start</button></div>";
+    document.getElementById("modalBody").innerHTML =
+        "<h2><img id='ideaModal' src='./assets/images/idea.png' alt='idea icon'>Start a new game</h2><div id='gameModal'><p>Difficulty</p><button type='button' data-type='difficulty' id='difficulty'>Easy</button><button data-type='start' data-bs-dismiss='modal'>Start</button></div>";
 
-    // Attach event listener to the difficulty button after it is added to the DOM
     const difficultyButton = document.querySelector('[data-type="difficulty"]');
     difficultyButton.addEventListener("click", difficultySwitch);
 
-    // Attach event listener to the start button after it is added to the DOM
     const startButton = document.querySelector('[data-type="start"]');
-    startButton.addEventListener("click", function() {
+    startButton.addEventListener("click", function () {
         const difficulty = document.querySelector('[data-type="difficulty"]').textContent;
         startNewGame(difficulty);
     });

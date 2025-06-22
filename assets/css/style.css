@@ -307,7 +307,7 @@ button:disabled {
 
 /* Media queries for different screen sizes */
 @media screen and (min-width: 280px) {
-    .answerDigit, .clueDigit {
+    .answerDigit, .clueDigit, .palettColor {
         min-width: 21px;
         height: 25px;
     }      

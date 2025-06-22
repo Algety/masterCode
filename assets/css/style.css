@@ -65,7 +65,7 @@ body {
 
 /* Styles for the modal backdrop */
 .modal-backdrop {
-    background-color: rgba(132, 132, 132, 0.3); /* Light background with 80% opacity */
+    background-color: rgba(91, 91, 91, 0.8); /* Light background with 80% opacity */
 }
 
 /* Styles for the game modal */
@@ -85,9 +85,9 @@ h1, h2 {
 }
 
 /* Styles for h2 heading */
-h2 {
+/* h2 {
     font-size: 2em;
-}
+} */
 
 /* Styles for paragraphs */
 p {  
@@ -305,19 +305,41 @@ button:disabled {
     align-items: center;
 }
 
+/* --------------------------------------------------------------- */
+
 /* Media queries for different screen sizes */
 @media screen and (min-width: 280px) {
     .answerDigit, .clueDigit, .palettColor {
         min-width: 21px;
         height: 25px;
     }      
+
+    .codeDigit {
+        min-width: 35px;
+        height: 35px;
+    }
+
     .modal-dialog {
-        max-width: 90%;
+        max-width: 95%;
+    }
+
+    button {
+        font-size: 12px;
+    }
+
+    .modal-body h2 {
+        font-size: 1rem;
     }
 }
 
 @media screen and (min-width: 320px) {
-  
+     button {
+        font-size: 16px;
+    }
+
+    .modal-body h2 {
+        font-size: 1.25rem;
+    }
 }
 
 @media screen and (min-width: 400px) {
@@ -330,7 +352,7 @@ button:disabled {
         height: 60px;
     }
     .modal-dialog {
-        max-width: 50%;
+        max-width: 65%;
     }
 }
 

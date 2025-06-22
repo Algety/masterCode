@@ -96,6 +96,7 @@ function addDigitBox(answerBox) {
     for (let i = 1; i <= numberOfDigits; i++) {
         const digit = document.createElement("div");
         digit.textContent = i;
+        // digit.dataset.codeDigit = i;
         digit.className = "answerDigit";
         answerBox.appendChild(digit);
     }
@@ -110,7 +111,7 @@ function setupAnswerDigitCycling() {
             if (this.classList.contains("disabled")) return;
             this.classList.add("clickedAnswer");
             let clicked = parseInt(this.dataset.colorIndex, 10);
-            clicked = (clicked + 1) % 8;
+            clicked = clicked == 7 ? 8 : (clicked + 1) % 8;
             this.dataset.colorIndex = clicked;
             this.style.backgroundImage = `url('./assets/images/buttons/b-${clicked}.png')`;
         });
@@ -261,7 +262,7 @@ function displayClue(j, k) {
 // Show game instructions
 function showInstruction() {
     document.getElementById("modalBody").innerHTML =
-        "<p>The objective of the game is to guess the code. Use your logic and deduction to figure out the correct combination</p><p>Colours in the code can repeat. Click the pins in the answer box to change their colour, with every click they will change their colour. When you are ready to check your answer, click the check button to submit your guess.</p><p>You'll get clues: a red pin means there is a pin which <strong>color and position</strong> are correct, and a yellow pin means there is a pin which color is right but it is in the <strong>wrong</strong> position.</p><p>Good luck!</p>";
+        "<p>Using your logic and deduction, figure out the correct combination of colours in the code.</p><br><p>Colours may repeat in the code. Click the pins in the answer box to cycle through the available colours. When you're satisfied with your selection, click the check button to submit your guess.</p><p>You’ll receive clues: red pins indicate how many pins are the correct <strong>colour and in the correct position</strong>, while yellow pins show how many pins have the correct <strong>colour</strong> but are in the <strong>wrong position</strong>.</p>";
 }
 
 // Show the new game modal and attach event listeners

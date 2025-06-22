@@ -1,32 +1,74 @@
-// Define listener functions
+// --- MOBILE SUPPORT: Palette images and mobile cycling ---
+function isMobile() {
+    return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
+}
+
+// List your palette image URLs (update if you have more/less)
+const paletteImages = [
+    './assets/images/buttons/b-1.png',
+    './assets/images/buttons/b-2.png',
+    './assets/images/buttons/b-3.png',
+    './assets/images/buttons/b-4.png',
+    './assets/images/buttons/b-5.png',
+    './assets/images/buttons/b-6.png',
+    './assets/images/buttons/b-7.png',
+    './assets/images/buttons/b-8.png'
+];
+
+// On mobile: cycle background image and store digit on answerDigit click
+function setupMobileAnswerDigitCycling() {
+    if (isMobile()) {
+        document.querySelectorAll('.answerDigit').forEach(answer => {
+            answer.classList.remove('dropzone', 'active');
+            answer.removeEventListener("dragover", allowDrop);
+            answer.removeEventListener("drop", handleDrop);
+        });
+        document.querySelectorAll('.palettColor').forEach(pal => {
+            pal.setAttribute("draggable", "false");
+        });
+
+        document.querySelectorAll('.answerDigit').forEach(answer => {
+            answer.dataset.colorIndex = 0;
+            answer.dataset.digit = 1; // Start at 1
+            answer.style.backgroundImage = `url('${paletteImages[0]}')`;
+            answer.textContent = ""; // Hide digit
+            answer.onclick = function () {
+                let idx = parseInt(this.dataset.colorIndex, 10);
+                idx = (idx + 1) % paletteImages.length;
+                this.dataset.colorIndex = idx;
+                this.dataset.digit = idx + 1; // Store digit (1-based)
+                this.style.backgroundImage = `url('${paletteImages[idx]}')`;
+                this.textContent = ""; // Hide digit
+            };
+        });
+    }
+}
+
+// --- DRAG AND DROP & GAME LOGIC (existing code) ---
+
 function getDragId(event) {
-    // Store the ID of the dragged element
     event.dataTransfer.setData("text/plain", this.id);
 }
 
 function allowDrop(event) {
-    event.preventDefault(); // Allow the drop
+    event.preventDefault();
 }
 
 function handleDrop(event) {
     event.preventDefault();
-    // Get the ID of the dragged element
     const draggedElementId = event.dataTransfer.getData("text/plain");
     const draggedElement = document.getElementById(draggedElementId);
-    // Remove any existing element in the dropzone and display a full palette
     if (this.firstChild) {
         this.removeChild(this.firstChild);
         document.getElementById("palettBox").innerHTML = "";
         displayPalett();
     }
-    // Append the dragged element to the dropzone with a class
     this.appendChild(draggedElement);
     draggedElement.classList.add("added");
     draggedElement.setAttribute("draggable", "false");
     initializeDraggableElements();
 }
 
-// Handle touch start event
 function handleTouchStart(event) {
     event.preventDefault();
     const touch = event.touches[0];
@@ -37,7 +79,6 @@ function handleTouchStart(event) {
     draggedElement.style.top = `${touch.pageY}px`;
 }
 
-// Handle touch move event
 function handleTouchMove(event) {
     event.preventDefault();
     const touch = event.touches[0];
@@ -48,7 +89,6 @@ function handleTouchMove(event) {
     }
 }
 
-// Handle touch end event
 function handleTouchEnd(event) {
     event.preventDefault();
     const draggedElement = document.querySelector(".dragging");
@@ -64,7 +104,6 @@ function handleTouchEnd(event) {
     }
 }
 
-// Make draggable elements functional
 function initializeDraggableElements() {
     const draggables = document.querySelectorAll(".draggable");
     draggables.forEach(draggable => {
@@ -75,34 +114,28 @@ function initializeDraggableElements() {
     });
 }
 
-// Make dropzone elements functional
 function initializeDropzones() {
     const dropzones = document.querySelectorAll(".active");
     dropzones.forEach(dropzone => {
-        // Allow dropping on this element
         dropzone.addEventListener("dragover", allowDrop);
-        // Handle the drop event
         dropzone.addEventListener("drop", handleDrop);
     });
 }
 
-// Function to disable the dropzones in an answerBox
 function disableDropzones() {
     const dropzones = document.querySelectorAll(".active");
     dropzones.forEach(dropzone => {
-        // Remove the dragover and drop event listeners
         dropzone.removeEventListener("dragover", allowDrop);
         dropzone.removeEventListener("drop", handleDrop);
     });
 }
 
-// Reinitialize drag-and-drop functionality
 function reinitializeDragAndDrop() {
     initializeDraggableElements();
     initializeDropzones();
 }
 
-// Initialize the game when the DOM is fully loaded
+// --- DOMContentLoaded: call mobile cycling setup ---
 document.addEventListener("DOMContentLoaded", function() {
     const buttons = document.getElementsByTagName("button");
     for (const button of buttons) {
@@ -122,91 +155,18 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-
-    // Initialize drag-and-drop functionality
     initializeDraggableElements();
     initializeDropzones();
+    setupMobileAnswerDigitCycling(); // <-- ADD THIS
 });
 
-function enableDnDForPaletteAndAnswer() {
-    const paletteDigits = document.querySelectorAll('.palettDigit');
-    const answerDigits = document.querySelectorAll('.answerDigit');
+// --- Game logic (existing code) ---
 
-    paletteDigits.forEach(digit => {
-        // Mouse events for desktop
-        digit.draggable = true;
-        digit.addEventListener('dragstart', handleDragStart);
-
-        // Touch events for mobile
-        digit.addEventListener('touchstart', handleTouchStart, { passive: false });
-        digit.addEventListener('touchmove', handleTouchMove, { passive: false });
-        digit.addEventListener('touchend', handleTouchEnd, { passive: false });
-    });
-
-    answerDigits.forEach(zone => {
-        // Mouse events for desktop
-        zone.addEventListener('dragover', handleDragOver);
-        zone.addEventListener('drop', handleDrop);
-
-        // Touch events for mobile
-        zone.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
-    });
-}
-
-// For mouse
-function handleDragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.id);
-}
-function handleDragOver(e) {
-    e.preventDefault();
-}
-function handleDrop(e) {
-    e.preventDefault();
-    const id = e.dataTransfer.getData('text/plain');
-    const dragged = document.getElementById(id);
-    if (dragged && e.target.classList.contains('answerDigit')) {
-        e.target.appendChild(dragged);
-    }
-}
-
-// For touch
-let touchDragged = null;
-function handleTouchStart(e) {
-    touchDragged = e.target;
-    e.target.classList.add('dragging');
-}
-function handleTouchMove(e) {
-    e.preventDefault();
-    const touch = e.touches[0];
-    touchDragged.style.position = 'absolute';
-    touchDragged.style.left = touch.pageX - touchDragged.offsetWidth / 2 + 'px';
-    touchDragged.style.top = touch.pageY - touchDragged.offsetHeight / 2 + 'px';
-    touchDragged.style.zIndex = 1000;
-}
-function handleTouchEnd(e) {
-    if (!touchDragged) return;
-    touchDragged.classList.remove('dragging');
-    touchDragged.style.position = '';
-    touchDragged.style.left = '';
-    touchDragged.style.top = '';
-    touchDragged.style.zIndex = '';
-
-    // Find the answerDigit under the touch point
-    const touch = e.changedTouches[0];
-    const elem = document.elementFromPoint(touch.clientX, touch.clientY);
-    if (elem && elem.classList.contains('answerDigit')) {
-        elem.appendChild(touchDragged);
-    }
-    touchDragged = null;
-}
-
-// Switch the difficulty level between Easy and Medium
 function difficultySwitch() {
     const difficulty = document.querySelector('[data-type="difficulty"]');
     difficulty.textContent = difficulty.textContent === "Easy" ? "Medium" : "Easy";
 }
 
-// Start a new game with the specified difficulty
 function startNewGame(difficulty) {
     const gameContainer = document.getElementById("gameContainer");
     [...gameContainer.children].forEach(child => {
@@ -221,7 +181,6 @@ function startNewGame(difficulty) {
     addAnswerBox();
 }
 
-// Generate a code based on the difficulty level
 function genCode(difficulty) {
     const codeLength = difficulty === "Easy" ? 4 : 5;
     const code = [];
@@ -232,10 +191,9 @@ function genCode(difficulty) {
     return code;
 }
 
-// Place the generated code in the code container
 function placeCode(code) {
     const codeContainer = document.getElementById("codeToGuess");
-    codeContainer.innerHTML = ""; // Clear previous code
+    codeContainer.innerHTML = "";
     for (const item of code) {
         const digit = document.createElement("div");
         digit.textContent = item;
@@ -244,10 +202,9 @@ function placeCode(code) {
     }
 }
 
-// Display the palette of draggable digits
 function displayPalett() {
     const palettBox = document.getElementById("palettBox");
-    palettBox.innerHTML = ""; // Clear previous palette
+    palettBox.innerHTML = "";
     for (let i = 1; i < 9; i++) {
         const digit = document.createElement("div");
         digit.textContent = i;
@@ -257,11 +214,9 @@ function displayPalett() {
         digit.style.backgroundImage = "url('./assets/images/buttons/b-" + i + ".png')";
         palettBox.appendChild(digit);
     }
-    // Reinitialize drag-and-drop for newly created elements
     reinitializeDragAndDrop();
 }
 
-// Add an answer box for the player to input their guess
 function addAnswerBox() {
     const reasoningBox = document.getElementById("reasoningBox");
     const answerBox = document.createElement("div");
@@ -273,7 +228,6 @@ function addAnswerBox() {
     return answerBox;
 }
 
-// Add a box for the player to input their guess digits
 function addDigitBox(answerBox) {
     const digitBox = document.createElement("div");
     digitBox.className = "answerItem";
@@ -286,36 +240,37 @@ function addDigitBox(answerBox) {
         digit.id = "answerDigit-" + i;
         digitBox.appendChild(digit);
     }
-    // Reinitialize drag-and-drop for newly created dropzones
     reinitializeDragAndDrop();
+    setupMobileAnswerDigitCycling(); // <-- ADD THIS
 }
 
-// Add a submit button for the player to submit their guess
 function addSubmitButton(answerBox) {
     const submitButton = document.createElement("button");
     submitButton.className = "answerItem";
     submitButton.id = "submitAnswer";
     submitButton.setAttribute("data-type", "submitButton");
     submitButton.innerHTML = "<i class='fa-solid fa-check'></i>";
-    // Define a named function for the click event
     function handleClick() {
         if (isAnswerComplete()) {
-            submitButtonClicked(submitButton, handleClick); // Pass the reference to the handler
+            submitButtonClicked(submitButton, handleClick);
         }
     }
-    // Add the event listener
     submitButton.addEventListener("click", handleClick);
     answerBox.appendChild(submitButton);
     return submitButton, handleClick;
 }
 
-// Check if the player's answer is complete
 function isAnswerComplete() {
-    const numberOfDigitsInAnswer = [...document.getElementsByClassName("added")].length;
-    const numberOfDigits = document.getElementsByClassName("codeDigit").length;
+    let numberOfDigitsInAnswer, numberOfDigits;
+    if (isMobile()) {
+        numberOfDigitsInAnswer = [...document.getElementsByClassName("answerDigit")].filter(div => div.dataset.digit && div.dataset.digit !== "0").length;
+        numberOfDigits = document.getElementsByClassName("codeDigit").length;
+    } else {
+        numberOfDigitsInAnswer = [...document.getElementsByClassName("added")].length;
+        numberOfDigits = document.getElementsByClassName("codeDigit").length;
+    }
     if (numberOfDigitsInAnswer < numberOfDigits) {
         document.getElementById("modalBody").innerHTML = "<p>You need to complete your code</p>";
-        // Show the modal
         const modal = new bootstrap.Modal(document.getElementById("newGame"));
         modal.show();
         return false;
@@ -323,7 +278,6 @@ function isAnswerComplete() {
     return true;
 }
 
-// Handle the submit button click event
 function submitButtonClicked(submitButton, handleClick) {
     submitButton.className = "clicked";
     submitButton.setAttribute("disabled", "true");
@@ -337,7 +291,7 @@ function submitButtonClicked(submitButton, handleClick) {
     const activeDigitBoxes = document.getElementsByClassName("active");
     [...activeDigitBoxes].forEach(activeDigitBox => {
         disableDropzones(activeDigitBox);
-        activeDigitBox.firstChild.classList.add("check");
+        if (activeDigitBox.firstChild) activeDigitBox.firstChild.classList.add("check");
         activeDigitBox.classList.remove("active");
     });
     checkAnswer();
@@ -347,7 +301,6 @@ function submitButtonClicked(submitButton, handleClick) {
     }
 }
 
-// Add a box to display clues for the player's guess
 function addClueBox(answerBox) {
     const clueBox = document.createElement("div");
     clueBox.className = "answerItem";
@@ -357,7 +310,6 @@ function addClueBox(answerBox) {
     return clueBox;
 }
 
-// Add digits to the clue box
 function addClueDigits(clueBox) {
     const numberOfDigits = document.getElementsByClassName("codeDigit").length;
     for (let i = 1; i <= numberOfDigits; i++) {
@@ -370,12 +322,18 @@ function addClueDigits(clueBox) {
     }
 }
 
-// Check the player's answer against the generated code
+// --- MODIFIED: Use data-digit for mobile answer checking ---
 function checkAnswer() {
-    const answerDigits = [...document.getElementsByClassName("check")].map(div => div.textContent.trim());
+    let answerDigits;
+    if (isMobile()) {
+        answerDigits = [...document.getElementsByClassName("answerDigit")].map(div => div.dataset.digit);
+    } else {
+        answerDigits = [...document.getElementsByClassName("check")].map(div => div.textContent.trim());
+    }
+    const codeValues = [...document.getElementsByClassName("codeDigit")].map(div => div.textContent.trim());
+    //  const codeValues = ['1', '2', '2', '2', '3'];
+    // You may want to update codeValues logic for mobile as well if needed
     console.log(answerDigits);
-    // const codeValues = [...document.getElementsByClassName("codeDigit")].map(div => div.textContent.trim());
-     const codeValues = ['1', '2', '2', '2', '3'];
     console.log(codeValues);
     const uniqueAnswerDigits =  [...new Set(answerDigits)];
     console.log(uniqueAnswerDigits);
@@ -384,7 +342,6 @@ function checkAnswer() {
     let correctPositionCount = 0;
     let correctColorCount = 0;
 
-    // Count digits of the right color and in the right position
     correctPositionCount = codeValues.reduce((count, codeDigit, index) => {
         return count + (codeDigit === answerDigits[index] ? 1 : 0);
     }, 0);
@@ -396,11 +353,9 @@ function checkAnswer() {
         return;
     }
 
-    // Count digits of the right color but in the wrong position
     correctColorCount = uniqueAnswerDigits.reduce((count, digit) => {
         const answerOccurrence = answerDigits.filter(d => d === digit).length;
         const codeOccurrence = codeValues.filter(c => c === digit).length;
-        console.log(answerOccurrence + " " + codeOccurrence);
         return count + Math.min(answerOccurrence, codeOccurrence);
     }, 0);
 
@@ -410,14 +365,12 @@ function checkAnswer() {
     displayClue(correctPositionCount, correctColorCount);
 }
 
-// Reveal the code by updating the background images
 function revealCode() {
     [...document.getElementsByClassName("codeDigit")].forEach(item => {
         item.style.backgroundImage = `url('./assets/images/buttons/b-${item.textContent}.png')`;
     });
 }
 
-// End the game and display the success message
 function endGame() {
     document.getElementById("gameContainer").classList.remove("started");
 
@@ -430,7 +383,6 @@ function endGame() {
     }, 2000);
 }
 
-// Display clues based on the player's guess
 function displayClue(j, k) {
     const clueDigits = [...document.getElementsByClassName("activeClue")];
     for (let i = 0; i < j; i++) {
@@ -446,22 +398,18 @@ function displayClue(j, k) {
     });
 }
 
-// Show game instructions
 function showInstruction() {
     document.getElementById("modalBody").innerHTML = 
     "<p>The objective of the game is to guess the code. Use your logic and deduction to figure out the correct combination</p><p>Colors can repeat. Drag and drop color pins from the palette to the answer box, then click the check button to submit your guess.</p><p>You'll get clues: a red pin means the <strong>color and position</strong> are correct, and a yellow pin means the color is right but in the <strong>wrong</strong> position.</p><p>Good luck!</p>";
 }
 
-// Show the new game modal and attach event listeners
 function showNewGameModal() {
     document.getElementById("modalBody").innerHTML = 
     "<h2><img id='ideaModal' src='./assets/images/idea.png' alt='idea icon'>Start a new game</h2><div id='gameModal'><p>Difficulty</p><button type='button' data-type='difficulty' id='difficulty'>Easy</button><button data-type='start' data-bs-dismiss='modal'>Start</button></div>";
 
-    // Attach event listener to the difficulty button after it is added to the DOM
     const difficultyButton = document.querySelector('[data-type="difficulty"]');
     difficultyButton.addEventListener("click", difficultySwitch);
 
-    // Attach event listener to the start button after it is added to the DOM
     const startButton = document.querySelector('[data-type="start"]');
     startButton.addEventListener("click", function() {
         const difficulty = document.querySelector('[data-type="difficulty"]').textContent;

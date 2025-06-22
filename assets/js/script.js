@@ -128,6 +128,78 @@ document.addEventListener("DOMContentLoaded", function() {
     initializeDropzones();
 });
 
+function enableDnDForPaletteAndAnswer() {
+    const paletteDigits = document.querySelectorAll('.palettDigit');
+    const answerDigits = document.querySelectorAll('.answerDigit');
+
+    paletteDigits.forEach(digit => {
+        // Mouse events for desktop
+        digit.draggable = true;
+        digit.addEventListener('dragstart', handleDragStart);
+
+        // Touch events for mobile
+        digit.addEventListener('touchstart', handleTouchStart, { passive: false });
+        digit.addEventListener('touchmove', handleTouchMove, { passive: false });
+        digit.addEventListener('touchend', handleTouchEnd, { passive: false });
+    });
+
+    answerDigits.forEach(zone => {
+        // Mouse events for desktop
+        zone.addEventListener('dragover', handleDragOver);
+        zone.addEventListener('drop', handleDrop);
+
+        // Touch events for mobile
+        zone.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+    });
+}
+
+// For mouse
+function handleDragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+}
+function handleDragOver(e) {
+    e.preventDefault();
+}
+function handleDrop(e) {
+    e.preventDefault();
+    const id = e.dataTransfer.getData('text/plain');
+    const dragged = document.getElementById(id);
+    if (dragged && e.target.classList.contains('answerDigit')) {
+        e.target.appendChild(dragged);
+    }
+}
+
+// For touch
+let touchDragged = null;
+function handleTouchStart(e) {
+    touchDragged = e.target;
+    e.target.classList.add('dragging');
+}
+function handleTouchMove(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    touchDragged.style.position = 'absolute';
+    touchDragged.style.left = touch.pageX - touchDragged.offsetWidth / 2 + 'px';
+    touchDragged.style.top = touch.pageY - touchDragged.offsetHeight / 2 + 'px';
+    touchDragged.style.zIndex = 1000;
+}
+function handleTouchEnd(e) {
+    if (!touchDragged) return;
+    touchDragged.classList.remove('dragging');
+    touchDragged.style.position = '';
+    touchDragged.style.left = '';
+    touchDragged.style.top = '';
+    touchDragged.style.zIndex = '';
+
+    // Find the answerDigit under the touch point
+    const touch = e.changedTouches[0];
+    const elem = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (elem && elem.classList.contains('answerDigit')) {
+        elem.appendChild(touchDragged);
+    }
+    touchDragged = null;
+}
+
 // Switch the difficulty level between Easy and Medium
 function difficultySwitch() {
     const difficulty = document.querySelector('[data-type="difficulty"]');

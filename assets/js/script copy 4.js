@@ -93,9 +93,9 @@ function addAnswerBox() {
 
 // Add a box for the player to input their guess digits
 function addDigitBox(answerBox) {
-    // const digitBox = document.createElement("div");
-    // digitBox.className = "answerItem";
-    // answerBox.appendChild(digitBox);
+    const digitBox = document.createElement("div");
+    digitBox.className = "answerItem";
+    answerBox.appendChild(digitBox);
     const numberOfDigits = document.getElementsByClassName("codeDigit").length;
     for (let i = 1; i <= numberOfDigits; i++) {
         const digit = document.createElement("div");
@@ -103,8 +103,7 @@ function addDigitBox(answerBox) {
         digit.textContent = i;
         digit.className = "answerDigit";
         // digit.id = "answerDigit-" + i;
-        //!!!! digitBox.appendChild(digit);
-        answerBox.appendChild(digit);
+        digitBox.appendChild(digit);
     }
     // Add event listener to the answerDigit element:
     setupAnswerDigitCycling();

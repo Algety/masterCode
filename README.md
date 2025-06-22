@@ -77,7 +77,7 @@ The site consists of a single page where modals are used for displaying rules, s
 The structure includes a main container with a control container and a game container. The control container features a header with the game's title and three buttons below it that open modal boxes. The modals' and game container`s content is dynamically updated using innerHTML based on the activated event listener. At this stage of development, the "Restart" button is disabled, with its functionality planned for future implementation.
 
 Before the game begins, the game container displays an image of a vault and a message encouraging the player to start the game. Once the game starts, the game container shows a code box, a palette box, and a reasoning box. The code box contains the code, hidden under metal plates until the player guesses it correctly. When the code is cracked, the plates disappear to reveal the code.
-The palette box presents 8 coloured pins. The reasoning box comprises an answer box and a clue box. Players drag pins to the answer box to form their guess for the code. After submitting their guess, feedback is displayed in the clue box. If the guess is incorrect, a new answer box is added below for another attempt.
+The palette box presents 8 coloured pins. The reasoning box comprises an answer box and a clue box. Players clicks on pins in the answer box to form their guess for the code, with each click the colour changes to the next from colour palette. After submitting their guess, feedback is displayed in the clue box. If the guess is incorrect, a new answer box is added below for another attempt.
 
 ### Style and design
 Considering the character of the game, the goal is to ensure players can focus intently on the gameplay while making the colored pins prominently visible. The overall style of the game interface is industrial and modern, with a rugged and functional design. The concrete-textured background gives it a sturdy and serious feel, appropriate for a logic and deductive game.
@@ -93,10 +93,8 @@ The main container resembles a device or machine with elements like metal plates
 
 ![alt text](docs/image-15.png)
 
-### Drag and drop elements
-The palette box contains pegs of 8 colours which a player drags to an answer box below. The answer box contains drop zones where the coloured pegs are placed. After the answer is submitted, the drop zones become disabled. After each unsuccessful guess, a new answer box is added for another try.
-
-![image](https://github.com/user-attachments/assets/7f4870c0-dec5-4031-b9b1-c0914e5cf615)
+### Answer box interaction
+The palette contains pegs in 8 different colours. In each answer box, clicking a peg cycles through the available colours. Once an answer is submitted, its pegs become disabled. After each incorrect guess, a new answer box appears for another attempt.
 
 ### Modals
 There are 3 modals used in the site: a modal for setting the difficulty of the game, activated by the "New game" button; a modal with instructions, activated by the "How to play" button; and a modal with a message to the player if they try to submit an incomplete answer code.

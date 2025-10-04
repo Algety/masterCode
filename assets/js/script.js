@@ -134,7 +134,6 @@ function addSubmitButton(answerBox) {
 
     submitButton.addEventListener("click", handleClick);
     answerBox.appendChild(submitButton);
-    return submitButton, handleClick;
 }
 
 // Check if the player's answer is complete
@@ -189,19 +188,39 @@ function addClueDigits(clueBox) {
     }
 }
 
-// Check the player's answer against the generated code
-function checkAnswer() {
-    const answerDigits = [...document.getElementsByClassName("clickedAnswer")].map(div => div.dataset.colorIndex);
-    console.log(answerDigits);
-    const codeValues = [...document.getElementsByClassName("codeDigit")].map(div => div.textContent.trim());
-    console.log(codeValues);
-    const uniqueAnswerDigits = [...new Set(answerDigits)];
-    let correctPositionCount = 0;
-    let correctColorCount = 0;
+// Add these helper functions before checkAnswer function
+function getAnswerDigits() {
+    return [...document.getElementsByClassName("clickedAnswer")]
+        .map(div => div.dataset.colorIndex);
+}
 
-    correctPositionCount = codeValues.reduce((count, codeDigit, index) => {
+function getCodeValues() {
+    return [...document.getElementsByClassName("codeDigit")]
+        .map(div => div.textContent.trim());
+}
+
+function countCorrectPositions(answerDigits, codeValues) {
+    return codeValues.reduce((count, codeDigit, index) => {
         return count + (codeDigit === answerDigits[index] ? 1 : 0);
     }, 0);
+}
+
+function countMatchingColors(answerDigits, codeValues, uniqueDigits) {
+    return uniqueDigits.reduce((count, digit) => {
+        const answerOccurrence = answerDigits.filter(d => d === digit).length;
+        const codeOccurrence = codeValues.filter(c => c === digit).length;
+        return count + Math.min(answerOccurrence, codeOccurrence);
+    }, 0);
+}
+
+// Modify the checkAnswer function to use helper functions
+function checkAnswer() {
+    const answerDigits = getAnswerDigits();
+    const codeValues = getCodeValues();
+    console.log(codeValues);
+    const uniqueAnswerDigits = [...new Set(answerDigits)];
+
+    const correctPositionCount = countCorrectPositions(answerDigits, codeValues);
 
     if (correctPositionCount === codeValues.length) {
         displayClue(correctPositionCount, 0);
@@ -210,16 +229,12 @@ function checkAnswer() {
         return;
     }
 
-    correctColorCount = uniqueAnswerDigits.reduce((count, digit) => {
-        const answerOccurrence = answerDigits.filter(d => d === digit).length;
-        const codeOccurrence = codeValues.filter(c => c === digit).length;
-        console.log(answerOccurrence + " " + codeOccurrence);
-        return count + Math.min(answerOccurrence, codeOccurrence);
-    }, 0);
-
+    let correctColorCount = countMatchingColors(answerDigits, codeValues, uniqueAnswerDigits);
     correctColorCount = Math.max(0, correctColorCount - correctPositionCount);
 
-    document.querySelectorAll(".clickedAnswer").forEach(item => item.classList.remove("clickedAnswer"));
+    document.querySelectorAll(".clickedAnswer").forEach(item => 
+        item.classList.remove("clickedAnswer")
+    );
     displayClue(correctPositionCount, correctColorCount);
 }
 
@@ -261,8 +276,26 @@ function displayClue(j, k) {
 
 // Show game instructions
 function showInstruction() {
-    document.getElementById("modalBody").innerHTML =
-        "<p>Using your logic and deduction, figure out the correct combination of colours in the code.</p><br><p>Colours may repeat in the code. Click the pins in the answer box to cycle through the available colours. When you're satisfied with your selection, click the check button to submit your guess.</p><p>You’ll receive clues: red pins indicate how many pins are the correct <strong>colour and in the correct position</strong>, while yellow pins show how many pins have the correct <strong>colour</strong> but are in the <strong>wrong position</strong>.</p>";
+    modalBody.innerHTML =
+        "<div class='modal-header'>" +
+        "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'>" +
+        "</button>" +
+        "</div>" +
+        "<p>Break the code by finding the right combination of colours!</p>" +
+        "<p>How to play:</p>" +
+        "<ul>" +
+        "<li>Use the colour palette at the top to see all available colours</li>" +
+        "<li>For each attempt, you'll have answer pins on the left and clue pins on the right</li>" + 
+        "<li>Click a pin in your answer to cycle through available colours</li>" +
+        "<li>Colours can appear multiple times in the code</li>" +
+        "<li>Click the check button to submit your guess</li>" +
+        "</ul>" +
+        "<p>After each guess, you'll get clue pins:</p>" +
+        "<ul>" +
+        "<li><strong>Red pins</strong> = <em>how many</em> of your answer pins are the correct colour AND in the correct position</li>" +
+        "<li><strong>Yellow pins</strong> = <em>how many</em> of your answer pins are the correct colour AND in the wrong position</li>" +
+        "</ul>" +
+        "<p><strong>Note:</strong> The position of the clue pins does not match the order of your answer pins.</p>";
 }
 
 // Show the new game modal and attach event listeners

@@ -217,7 +217,6 @@ function countMatchingColors(answerDigits, codeValues, uniqueDigits) {
 function checkAnswer() {
     const answerDigits = getAnswerDigits();
     const codeValues = getCodeValues();
-    console.log(codeValues);
     const uniqueAnswerDigits = [...new Set(answerDigits)];
 
     const correctPositionCount = countCorrectPositions(answerDigits, codeValues);
